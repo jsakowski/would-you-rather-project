@@ -1,10 +1,16 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux'
 import '../css/bootstrap.min.css';
 import '../css/App.css'
+import { handleInitialData } from '../actions/shared'
 import Nav from './Nav'
 import Login from './Login'
 
 class App extends Component {
+  componentDidMount() {
+    this.props.dispatch(handleInitialData())
+  }
+
   render() {
     return (
       <Fragment>
@@ -19,4 +25,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);
