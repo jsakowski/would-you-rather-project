@@ -25,6 +25,7 @@ class Nav extends Component {
               </ul>
             </div>
             <span className="text-light pr-3">Hello, {this.props.name}</span>
+            <img src={this.props.avatarURL} alt={this.props.name} className="img-avatar" />
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 <a className="nav-link" href="#navbarsDefault">Log Out</a>
@@ -44,6 +45,7 @@ function mapStateToProps({ authedUser, users }) {
 
   return {
     name: isAuthenticated ? users[authedUser].name : '',
+    avatarURL: isAuthenticated ? users[authedUser].avatarURL : '',
     isAuthenticated: isAuthenticated
   }
 }

@@ -6,6 +6,10 @@ body {
   text-align: center;
 }
 
+.img-avatar {
+  max-width: 1.5rem;
+}
+
 @media screen and (max-width: 767px) {
   .page {
       padding: 4rem 0rem;
