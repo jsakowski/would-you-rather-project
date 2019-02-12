@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
+import Category from './Category'
 
 class Home extends Component {
   state = {
@@ -16,22 +17,10 @@ class Home extends Component {
         activeKey={this.state.key}
         onSelect={key => this.setState({ key })}>
        <Tab eventKey="unanswered" title="Unanswered Questions">
-        <ul>
-          {unansweredIds.map((id) =>
-            <li key={id}>
-              {id}
-            </li>
-          )}
-          </ul>
+          <Category items={unansweredIds} />
         </Tab>
         <Tab eventKey="answered" title="Answered Questions">
-          <ul>
-            {answeredIds.map((id) =>
-              <li key={id}>
-                {id}
-              </li>
-            )}
-          </ul>
+          <Category items={answeredIds} />
         </Tab>
       </Tabs>
     )

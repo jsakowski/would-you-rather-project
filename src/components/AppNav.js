@@ -21,7 +21,7 @@ class AppNav extends Component {
             </Navbar.Collapse>
             <span>
               <span className="text-light pr-3 pl-3">Hello, {this.props.name}</span>
-              <img src={this.props.avatarURL} alt={this.props.name} className="img-avatar" />
+              <img src={this.props.avatarURL} alt={this.props.name} className="img-avatar-small" />
             </span>
             <Nav className="no-wrap ml-auto">
               <Nav.Link href="/logout">Log Out</Nav.Link>

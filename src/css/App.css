@@ -6,11 +6,15 @@ body {
   text-align: center;
 }
 
-.img-avatar {
+.img-avatar-small {
   max-width: 1.5rem;
 }
 
-@media screen and (max-width: 767px) {
+.img-avatar-medium {
+  max-width: 8rem;
+}
+
+@media screen and (max-width: 991px) {
   .page {
       padding: 4rem 0rem;
   }
