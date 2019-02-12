@@ -10,7 +10,7 @@ export default function questions(state = {}, action) {
 
     case SAVE_QUESTION_ANSWER :
       const { qid, authedUser, answer } = action.answer
- 
+
       return {
         ...state,
         [qid]: {

@@ -24,7 +24,7 @@ class PollVoter extends Component {
 
     const { answer } = this.state
     const { dispatch, id } = this.props
-    
+
     dispatch(handleSaveQuestionAnswer(id, answer))
   }
 
@@ -32,7 +32,7 @@ class PollVoter extends Component {
     const { author, authorAvatar, optionOne, optionTwo } = this.props
 
     return (
-      <PollWrapper author={author} authorAvatar={authorAvatar}>
+      <PollWrapper headerText={`${author} asked:`} authorAvatar={authorAvatar}>
         <Card.Title as="h1">Would you rather...</Card.Title>
         <Form id="poll" onSubmit={this.handleSubmit}>
           <Form.Check

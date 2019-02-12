@@ -12,7 +12,7 @@ class PollSummary extends Component {
   render() {
     const {author, avatarURL, text} = this.props
     return (
-      <PollWrapper author={author} authorAvatar={avatarURL}>
+      <PollWrapper headerText={`${author} asked:`} authorAvatar={avatarURL}>
         <Card.Title>Would you rather</Card.Title>
         <Card.Text>{text}</Card.Text>
         <Button variant="primary btn-block" onClick={this.hadleViewPoll}>View Poll</Button>

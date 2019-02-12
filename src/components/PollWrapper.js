@@ -5,11 +5,11 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 const PollWraper = (props) => {
-  const { author, authorAvatar} = props
+  const { headerText, authorAvatar} = props
 
   return (
     <Card className="text-left">
-      <Card.Header>{author} asks:</Card.Header>
+      <Card.Header>{headerText}</Card.Header>
       <Card.Body>
         <Container>
           <Row>
