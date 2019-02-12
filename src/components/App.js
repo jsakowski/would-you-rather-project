@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux'
-import '../css/bootstrap.min.css';
 import '../css/App.css'
 import { handleInitialData } from '../actions/shared'
-import Nav from './Nav'
+import AppNav from './AppNav'
 import Login from './Login'
+import Home from './Home'
 
 class App extends Component {
   componentDidMount() {
@@ -14,10 +14,14 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <Nav />
+        <AppNav />
         <main role="main" className="container">
           <div className="page">
-            <Login />
+            {this.props.isAuthenticated ?
+              <Home />
+              :
+              <Login />
+            }
           </div>
         </main>
       </Fragment>
@@ -25,4 +29,10 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+function mapStateToProps({ authedUser, users, questions }) {
+  return {
+    isAuthenticated: !(authedUser === null)
+  }
+}
+
+export default connect(mapStateToProps)(App);
