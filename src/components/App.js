@@ -5,6 +5,8 @@ import { handleInitialData } from '../actions/shared'
 import AppNav from './AppNav'
 import Login from './Login'
 import Home from './Home'
+import LoadingBar from 'react-redux-loading-bar'
+
 
 class App extends Component {
   componentDidMount() {
@@ -14,23 +16,30 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <AppNav />
-        <main role="main" className="container">
-          <div className="page">
-            {this.props.isAuthenticated ?
-              <Home />
-              :
-              <Login />
-            }
-          </div>
-        </main>
+        <header>
+          <LoadingBar showFastActions />
+          <AppNav />
+        </header>
+        {this.props.loading === true
+        ? null
+        : <main role="main" className="container">
+            <div className="page">
+              {this.props.isAuthenticated ?
+                <Home />
+                :
+                <Login />
+              }
+            </div>
+          </main>
+        }
       </Fragment>
     );
   }
 }
 
-function mapStateToProps({ authedUser, users, questions }) {
+function mapStateToProps({ authedUser, loadingBar }) {
   return {
+    loading: loadingBar.default === 1,
     isAuthenticated: !(authedUser === null)
   }
 }

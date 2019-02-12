@@ -10,7 +10,7 @@ class AppNav extends Component {
       <Fragment>
       {
         this.props.isAuthenticated ?
-          <Navbar bg="dark" variant="dark" expand="sm" fixed="top">
+          <Navbar bg="dark" variant="dark" expand="sm">
             <Navbar.Toggle aria-controls="main-navbar-nav" />
             <Navbar.Collapse id="main-navbar-nav">
             <Nav className="mr-auto">
