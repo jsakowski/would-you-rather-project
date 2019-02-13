@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import PollWrapper from './PollWrapper'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import { getPollAuthor } from '../utils/pollHelper'
 
 class PollSummary extends Component {
   hadleViewPoll = () => {
@@ -10,9 +11,9 @@ class PollSummary extends Component {
   }
 
   render() {
-    const {author, avatarURL, text} = this.props
+    const {name, avatarURL, text} = this.props
     return (
-      <PollWrapper headerText={`${author} asked:`} authorAvatar={avatarURL}>
+      <PollWrapper headerText={`${name} asked:`} authorAvatar={avatarURL}>
         <Card.Title>Would you rather</Card.Title>
         <Card.Text>{text}</Card.Text>
         <Button variant="primary btn-block" onClick={this.hadleViewPoll}>View Poll</Button>
@@ -26,8 +27,7 @@ function mapStateToProps({ authedUser, users, questions }, { id }) {
   const author = users[poll.author]
 
   return {
-    author: author.name,
-    avatarURL: author.avatarURL,
+    ...getPollAuthor(author),
     text: poll.optionOne.text,
   }
 }

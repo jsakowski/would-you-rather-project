@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import PollWrapper from './PollWrapper'
-import { handleSaveQuestionAnswer } from '../actions/questions'
+import PropTypes from 'prop-types'
+
 
 class PollVoter extends Component {
-  state ={
+  static propTypes = {
+    author: PropTypes.object.isRequired,
+    poll: PropTypes.object.isRequired,
+    handleSaveAnswer: PropTypes.func.isRequired,
+  }
+
+  state = {
     answer: null
   }
 
@@ -23,21 +29,21 @@ class PollVoter extends Component {
     e.preventDefault()
 
     const { answer } = this.state
-    const { dispatch, id } = this.props
+    const { handleSaveAnswer } = this.props
 
-    dispatch(handleSaveQuestionAnswer(id, answer))
+    handleSaveAnswer(answer)
   }
 
   render () {
-    const { author, authorAvatar, optionOne, optionTwo } = this.props
+    const { author, poll } = this.props
 
     return (
-      <PollWrapper headerText={`${author} asked:`} authorAvatar={authorAvatar}>
+      <PollWrapper headerText={`${author.name} asked:`} authorAvatar={author.avatarURL}>
         <Card.Title as="h1">Would you rather...</Card.Title>
         <Form id="poll" onSubmit={this.handleSubmit}>
           <Form.Check
             type="radio"
-            label={optionOne}
+            label={poll.optionOne}
             name="answerGroup"
             id="optionOne"
             onChange={this.handleChange}
@@ -46,7 +52,7 @@ class PollVoter extends Component {
           <Form.Check
             className="mt-3"
             type="radio"
-            label={optionTwo}
+            label={poll.optionTwo}
             name="answerGroup"
             id="optionTwo"
             onChange={this.handleChange}
@@ -59,17 +65,4 @@ class PollVoter extends Component {
   }
 }
 
-function mapStateToProps({ users, questions }, { id }) {
-  const poll = questions[id]
-  const author = users[poll.author]
-  //const isAnswered = poll.optionOne.votes.includes(authedUser) || poll.optionTwo.votes.includes(authedUser)
-
-  return {
-      author: author.name,
-      authorAvatar: author.avatarURL,
-      optionOne: poll.optionOne.text,
-      optionTwo: poll.optionTwo.text,
-  }
-}
-
-export default connect(mapStateToProps)(PollVoter)
+export default PollVoter
