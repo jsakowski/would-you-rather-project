@@ -50,7 +50,7 @@ class NewPoll extends Component {
 
     return (
       <Card>
-        <Card.Header as="h1">Create New Question</Card.Header>
+        <Card.Header as='h1'>Create New Question</Card.Header>
         <Card.Body>
           <p>Complete the question:</p>
           <Card.Title>Would you rather...</Card.Title>
@@ -59,34 +59,34 @@ class NewPoll extends Component {
             validated={validated}
             onSubmit={this.handleSubmit}
           >
-            <Form.Group controlId="optionOne">
+            <Form.Group controlId='optionOne'>
               <Form.Control
-                type="text"
-                placeholder="Enter option one text here"
+                type='text'
+                placeholder='Enter option one text here'
                 required
-                name="optionOne"
+                name='optionOne'
                 value={optionOne}
                 onChange={this.handleChange}
               />
-              <Form.Control.Feedback type="invalid">
+              <Form.Control.Feedback type='invalid'>
                     Please enter option one text.
               </Form.Control.Feedback>
             </Form.Group>
             <p>OR</p>
-            <Form.Group controlId="optionTwo">
+            <Form.Group controlId='optionTwo'>
               <Form.Control
-                type="text"
-                placeholder="Enter option two text here"
+                type='text'
+                placeholder='Enter option two text here'
                 required
-                name="optionTwo"
+                name='optionTwo'
                 value={optionTwo}
                 onChange={this.handleChange}
               />
-              <Form.Control.Feedback type="invalid">
+              <Form.Control.Feedback type='invalid'>
                 Please enter option two text.
               </Form.Control.Feedback>
               </Form.Group>
-              <Button className="mt-4" variant="primary btn-block" type="submit">Submit</Button>
+              <Button className='mt-4' variant='primary btn-block' type='submit'>Submit</Button>
             </Form>
           </Card.Body>
         </Card>

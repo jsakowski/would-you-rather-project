@@ -24,6 +24,7 @@ export function formatPoll(poll) {
 
 export function formatPoll4Vote(poll) {
   return {
+    id: poll.id,
     optionOne: poll.optionOne.text,
     optionTwo: poll.optionTwo.text,
   }

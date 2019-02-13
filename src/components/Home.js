@@ -16,10 +16,10 @@ class Home extends Component {
       <Tabs fill
         activeKey={this.state.key}
         onSelect={key => this.setState({ key })}>
-       <Tab eventKey="unanswered" title="Unanswered Questions">
+       <Tab eventKey='unanswered' title='Unanswered Questions'>
           <Category items={unansweredIds} />
         </Tab>
-        <Tab eventKey="answered" title="Answered Questions">
+        <Tab eventKey='answered' title='Answered Questions'>
           <Category items={answeredIds} />
         </Tab>
       </Tabs>
@@ -28,7 +28,7 @@ class Home extends Component {
 }
 
 function mapStateToProps({ authedUser, users, questions }) {
-  let answeredIds = Object.keys(users[authedUser].answers)
+  let answeredIds = authedUser === null ? [] : Object.keys(users[authedUser].answers)
 
   return {
     answeredIds: answeredIds

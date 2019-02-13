@@ -27,38 +27,40 @@ class PollVoter extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-
     const { answer } = this.state
-    const { handleSaveAnswer } = this.props
+    const { handleSaveAnswer, poll } = this.props
 
-    handleSaveAnswer(answer)
+    console.log('PollVoter.handleSubmit', poll.id, answer)
+
+    handleSaveAnswer(poll.id, answer)
   }
 
   render () {
     const { author, poll } = this.props
+    console.log('PollVoter.render', author, poll)
 
     return (
       <PollWrapper headerText={`${author.name} asked:`} authorAvatar={author.avatarURL}>
-        <Card.Title as="h1">Would you rather...</Card.Title>
-        <Form id="poll" onSubmit={this.handleSubmit}>
+        <Card.Title as='h1'>Would you rather...</Card.Title>
+        <Form id='poll' onSubmit={this.handleSubmit}>
           <Form.Check
-            type="radio"
+            type='radio'
             label={poll.optionOne}
-            name="answerGroup"
-            id="optionOne"
+            name='answerGroup'
+            id='optionOne'
             onChange={this.handleChange}
             required
           />
           <Form.Check
-            className="mt-3"
-            type="radio"
+            className='mt-3'
+            type='radio'
             label={poll.optionTwo}
-            name="answerGroup"
-            id="optionTwo"
+            name='answerGroup'
+            id='optionTwo'
             onChange={this.handleChange}
             required
           />
-          <Button className="mt-4" variant="primary btn-block" type="submit">Submit</Button>
+          <Button className='mt-4' variant='primary btn-block' type='submit'>Submit</Button>
         </Form>
       </PollWrapper>
     )

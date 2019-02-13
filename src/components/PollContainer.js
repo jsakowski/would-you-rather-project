@@ -1,18 +1,22 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { getMemberVote, formatPoll4Vote, formatPoll, getPollAuthor } from '../utils/pollHelper'
 import { handleSaveQuestionAnswer } from '../actions/questions'
 import PollVoter from './PollVoter'
 import Poll from './Poll'
 
 class PollContainer extends Component {
-  handleSaveAnswer = (answer) => {
-    const { dispatch, id } = this.props
+  handleSaveAnswer = (id, answer) => {
+    const { dispatch } = this.props
     dispatch(handleSaveQuestionAnswer(id, answer))
+    this.props.history.push('/')
   }
 
   render() {
     const { memberVote, author, poll } = this.props
+    console.log('PollContainer: render', poll, memberVote)
+
     return (
       <Fragment>
         {memberVote === 0
@@ -23,22 +27,24 @@ class PollContainer extends Component {
     )
   }
 }
-function mapStateToProps({ authedUser, users, questions }, { id }) {
+function mapStateToProps({ authedUser, users, questions }, props) {
+  const { id } = props.match.params
+
   const poll = questions[id]
   const author = users[poll.author]
   const memberVote = getMemberVote(poll, authedUser)
 
+  console.log('PollContainer: mapStateToProps', author, poll, memberVote)
+
   const formattedPoll = (memberVote === 0)
     ? formatPoll4Vote(poll)
     : formatPoll(poll)
-
 
   return {
     author: getPollAuthor(author),
     poll: formattedPoll,
     memberVote: memberVote,
   }
-
 }
 
-export default connect(mapStateToProps)(PollContainer)
+export default withRouter(connect(mapStateToProps)(PollContainer))

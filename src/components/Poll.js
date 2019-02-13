@@ -19,7 +19,7 @@ class Poll extends Component {
 
     return (
       <PollWrapper headerText={`Asked by ${author.name}`} authorAvatar={author.avatarURL}>
-        <Card.Title as="h1">Result</Card.Title>
+        <Card.Title as='h1'>Result</Card.Title>
         <AnswerDetails
           text={poll.option1.text}
           votes={poll.option1.votes}

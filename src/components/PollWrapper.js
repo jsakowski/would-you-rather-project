@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col'
 
 const PollWraper = (props) => {
   const { headerText, authorAvatar} = props
+  console.log('PollWraper: render', headerText, authorAvatar)
 
   return (
     <Card>
@@ -13,7 +14,7 @@ const PollWraper = (props) => {
       <Card.Body>
         <Container>
           <Row>
-            <Col xs={4} md={4}><Card.Img variant="left" className="img-avatar-medium" src={authorAvatar} /></Col>
+            <Col xs={4} md={4}><Card.Img variant='left' className='img-avatar-medium' src={authorAvatar} /></Col>
             <Col xs={8}>
               {props.children}
             </Col>

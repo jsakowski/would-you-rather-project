@@ -14,16 +14,16 @@ const AnswerDetails = (props) => {
     `${votes} out of ${totalVotes} votes`
 
   return (
-    <Alert variant={variant} className="poll-secondary">
+    <Alert variant={variant} className='poll-secondary'>
       {
         isVotedByAuthedUser ?
-          <div className="text-right"><Badge className="p-2 rounded-circle" variant="warning">Your<br />Vote</Badge></div>
+          <div className='text-right'><Badge className='p-2 rounded-circle' variant='warning'>Your<br />Vote</Badge></div>
         :
         null
       }
       <p>Would you rather {text}?</p>
       <ProgressBar now={percentage} label={percentage === 0 ? '' : `${percentage}%`} />
-      <p className="text-center"><small>{barDescription}</small></p>
+      <p className='text-center'><small>{barDescription}</small></p>
     </Alert>
   )
 }

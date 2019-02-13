@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-
+import { IndexLinkContainer } from 'react-router-bootstrap'
 
 class AppNav extends Component {
   render () {
@@ -10,21 +10,27 @@ class AppNav extends Component {
       <Fragment>
       {
         this.props.isAuthenticated ?
-          <Navbar bg="dark" variant="dark" expand="sm">
-            <Navbar.Toggle aria-controls="main-navbar-nav" />
-            <Navbar.Collapse id="main-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/new">New Question</Nav.Link>
-              <Nav.Link href="/leaderboard">Leader Board</Nav.Link>
+          <Navbar bg='dark' variant='dark' expand='sm'>
+            <Navbar.Toggle aria-controls='main-navbar-nav' />
+            <Navbar.Collapse id='main-navbar-nav'>
+            <Nav className='mr-auto'>
+              <IndexLinkContainer to='/'>
+                <Nav.Link>Home</Nav.Link>
+              </IndexLinkContainer>
+              <IndexLinkContainer to='/new'>
+                <Nav.Link>New Question</Nav.Link>
+              </IndexLinkContainer>
+                  <IndexLinkContainer to='/leaderboard'>
+                <Nav.Link>Leader Board</Nav.Link>
+              </IndexLinkContainer>
             </Nav>
             </Navbar.Collapse>
             <span>
-              <span className="text-light pr-3 pl-3">Hello, {this.props.name}</span>
-              <img src={this.props.avatarURL} alt={this.props.name} className="img-avatar-small" />
+              <span className='text-light pr-3 pl-3'>Hello, {this.props.name}</span>
+              <img src={this.props.avatarURL} alt={this.props.name} className='img-avatar-small' />
             </span>
-            <Nav className="no-wrap ml-auto">
-              <Nav.Link href="/logout">Log Out</Nav.Link>
+            <Nav className='no-wrap ml-auto'>
+              <Nav.Link href='/logout'>Log Out</Nav.Link>
             </Nav>
           </Navbar>
         :

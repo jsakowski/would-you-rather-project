@@ -3,9 +3,9 @@ import PollSummary from './PollSummary'
 
 const Category = (props) => {
   return (
-      <ul className="list-unstyled">
+      <ul className='list-unstyled'>
         {props.items.map((id) => (
-          <li key={id} className="pt-3">
+          <li key={id} className='pt-3'>
             <PollSummary id={id} />
           </li>
         ))}
