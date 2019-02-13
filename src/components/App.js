@@ -7,7 +7,6 @@ import Login from './Login'
 import Home from './Home'
 import LoadingBar from 'react-redux-loading-bar'
 
-
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
@@ -17,7 +16,7 @@ class App extends Component {
     return (
       <Fragment>
         <header>
-          <LoadingBar showFastActions />
+          <div className="fixed-top"><LoadingBar showFastActions /></div>
           <AppNav />
         </header>
         {this.props.loading === true

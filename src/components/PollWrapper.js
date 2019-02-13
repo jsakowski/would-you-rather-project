@@ -8,7 +8,7 @@ const PollWraper = (props) => {
   const { headerText, authorAvatar} = props
 
   return (
-    <Card className="text-left">
+    <Card>
       <Card.Header>{headerText}</Card.Header>
       <Card.Body>
         <Container>
