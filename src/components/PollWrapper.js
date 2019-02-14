@@ -1,28 +1,46 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Card, CardHeader, CardBody, CardImg, Container, Row, Col, Button } from 'reactstrap';
+import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-const PollWraper = (props) => {
-  const { headerText, authorAvatar} = props
-  console.log('PollWraper: render', headerText, authorAvatar)
 
-  return (
-    <Card>
-      <CardHeader>
-        {headerText}
-        <Button close />
-      </CardHeader>
-      <CardBody>
-        <Container>
-          <Row>
-            <Col xs={4} md={4}><CardImg variant='left' className='img-avatar-medium' src={authorAvatar} /></Col>
-            <Col xs={8}>
-              {props.children}
-            </Col>
-          </Row>
-        </Container>
-      </CardBody>
-    </Card>
-  )
+class PollWrapper extends Component {
+  static propTypes = {
+    headerText: PropTypes.string.isRequired,
+    authorAvatar: PropTypes.string.isRequired,
+    isCancelButton: PropTypes.bool,
+  }
+
+  handleCancel() {
+    this.props.history.push('/')
+  }
+
+  render () {
+    const { headerText, authorAvatar, isCancelButton} = this.props
+
+    return (
+      <Card>
+        <CardHeader>
+          {headerText}
+          {
+            isCancelButton === true
+              ? <Button close onClick={() => this.handleCancel()} />
+              : null
+          }
+        </CardHeader>
+        <CardBody>
+          <Container>
+            <Row>
+              <Col xs={4} md={4}><CardImg variant='left' className='img-avatar-medium' src={authorAvatar} /></Col>
+              <Col xs={8}>
+                {this.props.children}
+              </Col>
+            </Row>
+          </Container>
+        </CardBody>
+      </Card>
+    )
+  }
 }
 
-export default PollWraper
+export default withRouter(PollWrapper)

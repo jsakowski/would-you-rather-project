@@ -2,45 +2,51 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap'
 import Category from './Category'
+import { setHomeActiveTab } from  '../actions/homeState'
 
 class Home extends Component {
-  state = {
-    activeTab: 1,
-  }
+  // state = {
+  //   activeTab: this.props.activeTab,
+  // }
 
   toggle = (e) => {
     e.preventDefault();
-    const { activeTab } = this.state
+    e.stopPropagation()
+
+    // const { activeTab } = this.state
+    const { dispatch, activeTab } = this.props
+
     const tab = e.target.id
     if (activeTab !== tab) {
-      this.setState({
-        activeTab: tab,
-      });
+      // this.setState({
+      //   activeTab: tab,
+      // });
+      dispatch(setHomeActiveTab(tab))
     }
   }
 
   render() {
-    const { answeredIds, unansweredIds } = this.props
-    const { activeTab } = this.state
+    const { answeredIds, unansweredIds, activeTab } = this.props
+    // const { activeTab } = this.state
 
     return (
       <div>
         <Nav tabs className='nav-fill'>
-          <NavItem key='unanswered'>
+          <NavItem>
             <NavLink
               href='#unanswered'
-              id='1'
-              className={activeTab === 1 ? 'active': ''}
+              id='unanswered'
+              className={activeTab === 'unanswered' ? 'active': ''}
               onClick={(e) => { this.toggle(e) }}
             >
               Unanswered Questions
             </NavLink>
           </NavItem>
-          <NavItem key='answered'>
+          <NavItem>
             <NavLink
               href='#answered'
-              id='2'
-              className={activeTab === 2 ? 'active' : ''}
+              id='answered'
+              className={activeTab === 'answered' ? 'active' : ''}
               onClick={(e) => { this.toggle(e) }}
             >
               Answered Questions
@@ -48,10 +54,10 @@ class Home extends Component {
           </NavItem>
         </Nav>
         <TabContent activeTab={activeTab}>
-          <TabPane tabId='1' className={activeTab === 1 ? 'show active': ''}>
+          <TabPane tabId='unanswered' className={activeTab === 'unanswered' ? 'show active': ''}>
             <Category items={unansweredIds} />
           </TabPane>
-          <TabPane tabId='2' className={activeTab === 2 ? 'show active': ''}>
+          <TabPane tabId='answered' className={activeTab === 'answered' ? 'show active': ''}>
             <Category items={answeredIds} />
           </TabPane>
         </TabContent>
@@ -60,7 +66,7 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps({ authedUser, users, questions }) {
+function mapStateToProps({ authedUser, users, questions, homeState }) {
   let answeredIds = authedUser === null ? [] : Object.keys(users[authedUser].answers)
 
   return {
@@ -69,7 +75,9 @@ function mapStateToProps({ authedUser, users, questions }) {
 
     unansweredIds: Object.keys(questions)
       .filter(id => !answeredIds.includes(id))
-      .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
+      .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
+
+    activeTab: homeState
   }
 }
 

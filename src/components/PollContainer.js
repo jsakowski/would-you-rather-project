@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import { getMemberVote, formatPoll4Vote, formatPoll, getPollAuthor } from '../utils/pollHelper'
 import { handleSaveQuestionAnswer } from '../actions/questions'
 import PollVoter from './PollVoter'
@@ -10,7 +9,6 @@ class PollContainer extends Component {
   handleSaveAnswer = (id, answer) => {
     const { dispatch } = this.props
     dispatch(handleSaveQuestionAnswer(id, answer))
-    this.props.history.push('/')
   }
 
   render() {
@@ -34,8 +32,6 @@ function mapStateToProps({ authedUser, users, questions }, props) {
   const author = users[poll.author]
   const memberVote = getMemberVote(poll, authedUser)
 
-  console.log('PollContainer: mapStateToProps', author, poll, memberVote)
-
   const formattedPoll = (memberVote === 0)
     ? formatPoll4Vote(poll)
     : formatPoll(poll)
@@ -47,4 +43,4 @@ function mapStateToProps({ authedUser, users, questions }, props) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(PollContainer))
+export default connect(mapStateToProps)(PollContainer)

@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Navbar, NavbarToggler, Collapse, Nav, NavItem, NavLink as BootstrapNavLink } from 'reactstrap'
-//import { IndexLinkContainer } from 'react-router-bootstrap'
 import { NavLink, withRouter} from 'react-router-dom'
+import { setHomeActiveTab } from '../actions/homeState'
 
 
 class AppNav extends Component {
@@ -20,6 +20,12 @@ class AppNav extends Component {
     e.preventDefault();
   }
 
+  // resetHomeState = (e) => {
+  //   console.log('Home - resetHomeState')
+  //   const { dispatch } = this.props
+  //   dispatch(setHomeActiveTab())
+  // }
+
   render () {
     return (
       <Fragment>
@@ -31,7 +37,13 @@ class AppNav extends Component {
               <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className='mr-auto' navbar>
                   <NavItem >
-                    <NavLink exact className='nav-link' to='/' activeClassName='active'>Home</NavLink>
+                    <NavLink
+                      exact
+                      className='nav-link'
+                      to='/' activeClassName='active'
+                    >
+                      Home
+                    </NavLink>
                   </NavItem>
                   <NavItem >
                     <NavLink className='nav-link' to='/new' activeClassName='active'>New Question</NavLink>
@@ -47,7 +59,7 @@ class AppNav extends Component {
               </span>
               <Nav className='no-wrap ml-auto' navbar>
                 <NavItem>
-                  <BootstrapNavLink href='/logout' onClick={(e) => this.logout(e)}>Log Out</BootstrapNavLink>
+                  <BootstrapNavLink href='/logout' onClick={(e) => {this.logout(e)}}>Log Out</BootstrapNavLink>
                 </NavItem>
               </Nav>
             </Navbar>
