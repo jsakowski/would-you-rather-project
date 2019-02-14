@@ -1,33 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap'
+import { Nav, NavItem, NavLink, TabContent, TabPane, Alert } from 'reactstrap'
 import Category from './Category'
 import { setHomeActiveTab } from  '../actions/homeState'
 
 class Home extends Component {
-  // state = {
-  //   activeTab: this.props.activeTab,
-  // }
-
-  toggle = (e) => {
+toggle = (e) => {
     e.preventDefault();
     e.stopPropagation()
 
-    // const { activeTab } = this.state
     const { dispatch, activeTab } = this.props
 
     const tab = e.target.id
     if (activeTab !== tab) {
-      // this.setState({
-      //   activeTab: tab,
-      // });
       dispatch(setHomeActiveTab(tab))
     }
   }
 
   render() {
     const { answeredIds, unansweredIds, activeTab } = this.props
-    // const { activeTab } = this.state
 
     return (
       <div>
@@ -55,10 +46,30 @@ class Home extends Component {
         </Nav>
         <TabContent activeTab={activeTab}>
           <TabPane tabId='unanswered' className={activeTab === 'unanswered' ? 'show active': ''}>
-            <Category items={unansweredIds} />
+            {
+              unansweredIds.length > 0
+                ? <Category items={unansweredIds} />
+                : <Alert color='success' className='mt-3'>
+                  <h4 className='alert-heading'>Well done!</h4>
+                  <p>
+                    No more questions to answer. I’m sure you’ll add at least
+                    a few would you rather questions that are really hard to answer!
+                    Some can be ridiculous, some quite deep, while others - just fun to answer.
+                  </p>
+                </Alert>
+             }
           </TabPane>
           <TabPane tabId='answered' className={activeTab === 'answered' ? 'show active': ''}>
-            <Category items={answeredIds} />
+            {
+              answeredIds.length > 0
+                ? <Category items={answeredIds} />
+                : <Alert color='warning' className='mt-3'>
+              <p>
+                You did not answer any questions yet.
+                The perfect list of carefully chosen would you rather questions are wating for you.
+                  </p>
+            </Alert>
+           }
           </TabPane>
         </TabContent>
       </div>

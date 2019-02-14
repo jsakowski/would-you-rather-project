@@ -1,0 +1,19 @@
+feat: add close functionality to polls
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Your branch is up to date with 'origin/master'.
+#
+# Changes to be committed:
+#	new file:   src/actions/homeState.js
+#	modified:   src/components/AppNav.js
+#	modified:   src/components/Home.js
+#	modified:   src/components/Poll.js
+#	modified:   src/components/PollContainer.js
+#	modified:   src/components/PollVoter.js
+#	modified:   src/components/PollWrapper.js
+#	new file:   src/reducers/homeState.js
+#	modified:   src/reducers/index.js
+#
