@@ -1,8 +1,5 @@
 import React from 'react'
-import Card from 'react-bootstrap/Card'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import { Card, CardHeader, CardBody, CardImg, Container, Row, Col, Button } from 'reactstrap';
 
 const PollWraper = (props) => {
   const { headerText, authorAvatar} = props
@@ -10,17 +7,20 @@ const PollWraper = (props) => {
 
   return (
     <Card>
-      <Card.Header>{headerText}</Card.Header>
-      <Card.Body>
+      <CardHeader>
+        {headerText}
+        <Button close />
+      </CardHeader>
+      <CardBody>
         <Container>
           <Row>
-            <Col xs={4} md={4}><Card.Img variant='left' className='img-avatar-medium' src={authorAvatar} /></Col>
+            <Col xs={4} md={4}><CardImg variant='left' className='img-avatar-medium' src={authorAvatar} /></Col>
             <Col xs={8}>
               {props.children}
             </Col>
           </Row>
         </Container>
-      </Card.Body>
+      </CardBody>
     </Card>
   )
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Card from 'react-bootstrap/Card'
+import PropTypes from 'prop-types'
+import { CardTitle } from 'reactstrap'
 import PollWrapper from './PollWrapper'
 import AnswerDetails from './AnswerDetails'
-import PropTypes from 'prop-types'
 
 
 class Poll extends Component {
@@ -19,7 +19,7 @@ class Poll extends Component {
 
     return (
       <PollWrapper headerText={`Asked by ${author.name}`} authorAvatar={author.avatarURL}>
-        <Card.Title as='h1'>Result</Card.Title>
+        <CardTitle tag='h1'>Result</CardTitle>
         <AnswerDetails
           text={poll.option1.text}
           votes={poll.option1.votes}

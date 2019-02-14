@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Card from 'react-bootstrap/Card'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import { withRouter } from 'react-router-dom'
+import { Card, CardHeader, CardBody, CardTitle, Form, FormGroup, FormFeedback, Input, Button } from 'reactstrap'
 import { handleSaveQuestion } from '../actions/questions'
 
 class NewPoll extends Component {
@@ -18,7 +17,6 @@ class NewPoll extends Component {
 
     this.setState(() => ({
       [id]: text,
-      validated: false,
     }))
   }
 
@@ -28,10 +26,6 @@ class NewPoll extends Component {
 
     if (form.checkValidity() === false) {
       e.stopPropagation();
-
-      this.setState(() => ({
-        validated: true,
-      }))
     }
     else {
       const { optionOne, optionTwo } = this.state
@@ -42,56 +36,58 @@ class NewPoll extends Component {
         optionOne: '',
         optionTwo: '',
       }))
+
+      this.props.history.push('/')
     }
+
+    this.setState(() => ({
+      validated: true
+    }))
   }
+
 
   render() {
     const { validated, optionOne, optionTwo } = this.state;
+    const variant = validated ? 'was-validated' : ''
 
     return (
       <Card>
-        <Card.Header as='h1'>Create New Question</Card.Header>
-        <Card.Body>
+        <CardHeader tag='h1'>Create New Question</CardHeader>
+        <CardBody>
           <p>Complete the question:</p>
-          <Card.Title>Would you rather...</Card.Title>
-          <Form
-            noValidate
-            validated={validated}
-            onSubmit={this.handleSubmit}
-          >
-            <Form.Group controlId='optionOne'>
-              <Form.Control
+          <CardTitle tag='h2'>Would you rather...</CardTitle>
+          <Form className={`needs-validation ${variant}`} onSubmit={this.handleSubmit} noValidate>
+            <FormGroup>
+              <Input
                 type='text'
-                placeholder='Enter option one text here'
-                required
                 name='optionOne'
+                id='optionOne'
                 value={optionOne}
-                onChange={this.handleChange}
-              />
-              <Form.Control.Feedback type='invalid'>
-                    Please enter option one text.
-              </Form.Control.Feedback>
-            </Form.Group>
-            <p>OR</p>
-            <Form.Group controlId='optionTwo'>
-              <Form.Control
-                type='text'
-                placeholder='Enter option two text here'
+                placeholder='Enter option one text here'
+                onChange={(e) => this.handleChange(e)}
                 required
-                name='optionTwo'
-                value={optionTwo}
-                onChange={this.handleChange}
               />
-              <Form.Control.Feedback type='invalid'>
-                Please enter option two text.
-              </Form.Control.Feedback>
-              </Form.Group>
-              <Button className='mt-4' variant='primary btn-block' type='submit'>Submit</Button>
-            </Form>
-          </Card.Body>
+              <FormFeedback>Please enter option one text.</FormFeedback>
+            </FormGroup>
+            <p>OR</p>
+            <FormGroup>
+              <Input
+                type='text'
+                name='optionTwo'
+                id='optionTwo'
+                value={optionTwo}
+                placeholder='Enter option two text here'
+                onChange={(e) => this.handleChange(e)}
+                required
+              />
+              <FormFeedback>Please enter option two text.</FormFeedback>
+            </FormGroup>
+            <Button className='btn-block' color='primary'>Submit</Button>
+          </Form>
+          </CardBody>
         </Card>
      )
   }
 }
 
-export default connect()(NewPoll)
+export default withRouter(connect()(NewPoll))

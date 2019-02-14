@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 import PollWrapper from './PollWrapper'
 import PropTypes from 'prop-types'
-
+import { CardTitle, Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
 class PollVoter extends Component {
   static propTypes = {
@@ -41,26 +38,27 @@ class PollVoter extends Component {
 
     return (
       <PollWrapper headerText={`${author.name} asked:`} authorAvatar={author.avatarURL}>
-        <Card.Title as='h1'>Would you rather...</Card.Title>
+        <CardTitle tag='h1'>Would you rather...</CardTitle>
         <Form id='poll' onSubmit={this.handleSubmit}>
-          <Form.Check
-            type='radio'
-            label={poll.optionOne}
-            name='answerGroup'
-            id='optionOne'
-            onChange={this.handleChange}
-            required
-          />
-          <Form.Check
-            className='mt-3'
-            type='radio'
-            label={poll.optionTwo}
-            name='answerGroup'
-            id='optionTwo'
-            onChange={this.handleChange}
-            required
-          />
-          <Button className='mt-4' variant='primary btn-block' type='submit'>Submit</Button>
+          <FormGroup key='optionOne' check>
+            <Input
+              type='radio'
+              name='answerGroup'
+              id='optionOne'
+              onChange={this.handleChange}
+              required />
+            <Label check>{poll.optionOne}</Label>
+          </FormGroup>
+          <FormGroup key='optionTwo' className='mt-2' check>
+            <Input
+              type='radio'
+              name='answerGroup'
+              id='optionTwo'
+              onChange={this.handleChange}
+              required />
+            <Label check>{poll.optionTwo}</Label>
+          </FormGroup>
+          <Button className='mt-4 btn-block' color='primary' type='submit'>Submit</Button>
         </Form>
       </PollWrapper>
     )

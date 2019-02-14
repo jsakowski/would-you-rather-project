@@ -1,7 +1,5 @@
 import React from 'react'
-import Alert from 'react-bootstrap/Alert'
-import Badge from 'react-bootstrap/Badge'
-import ProgressBar from 'react-bootstrap/ProgressBar'
+import { Alert, Badge, Progress } from 'reactstrap';
 
 const AnswerDetails = (props) => {
   const {text, votes, totalVotes, isVotedByAuthedUser, isWinner} = props
@@ -14,15 +12,16 @@ const AnswerDetails = (props) => {
     `${votes} out of ${totalVotes} votes`
 
   return (
-    <Alert variant={variant} className='poll-secondary'>
+    <Alert color={variant} className='poll-secondary'>
       {
         isVotedByAuthedUser ?
-          <div className='text-right'><Badge className='p-2 rounded-circle' variant='warning'>Your<br />Vote</Badge></div>
+          <div className='text-right'><Badge className='p-2 rounded-circle' color='warning'>Your<br />Vote</Badge></div>
         :
         null
       }
       <p>Would you rather {text}?</p>
-      <ProgressBar now={percentage} label={percentage === 0 ? '' : `${percentage}%`} />
+      <div className='text-center'>{percentage === 0 ? '' : `${percentage}%`}</div>
+      <Progress value={percentage} />
       <p className='text-center'><small>{barDescription}</small></p>
     </Alert>
   )

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
+import { CardTitle, CardText, Button } from 'reactstrap';
 import PollWrapper from './PollWrapper'
 import { getPollAuthor } from '../utils/pollHelper'
 
@@ -15,12 +14,11 @@ class PollSummary extends Component {
 
   render() {
     const {name, avatarURL, text} = this.props
-    console.log('PollSummary - render', name, avatarURL, text)
     return (
       <PollWrapper headerText={`${name} asked:`} authorAvatar={avatarURL}>
-        <Card.Title>Would you rather</Card.Title>
-        <Card.Text>{text}...</Card.Text>
-          <Button variant='primary btn-block' onClick={this.hadleViewPoll}>View Poll</Button>
+        <CardTitle tag='h5'>Would you rather</CardTitle>
+        <CardText>{text}...</CardText>
+        <Button color='primary' className='btn-block' onClick={this.hadleViewPoll}>View Poll</Button>
       </PollWrapper>
     )
   }

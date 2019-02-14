@@ -29,7 +29,7 @@ export function handleSaveQuestionAnswer(qid, answer) {
       answer
     }
     console.log('Action handleSaveQuestionAnswer', info)
-    
+
     dispatch(showLoading())
     return saveQuestionAnswer(info)
       .then(() => dispatch(votePoll(info)))
