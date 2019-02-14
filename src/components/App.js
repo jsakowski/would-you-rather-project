@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
+import '../css/App.css'
 import { handleInitialData } from '../actions/shared'
 import AppNav from './AppNav'
 import Login from './Login'
@@ -8,7 +9,7 @@ import Home from './Home'
 import PollContainer from './PollContainer'
 import NewPoll from './NewPoll'
 import LoadingBar from 'react-redux-loading-bar'
-import '../css/App.css'
+import LeaderBoard from './LeaderBoard';
 
 
 class App extends Component {
@@ -33,6 +34,7 @@ class App extends Component {
                 <Route path='/' exact component={Home} />
                 <Route path='/question/:id' component={PollContainer} />
                 <Route path='/new' component={NewPoll} />
+                <Route path='/leaderboard' component={LeaderBoard} />
 	            </div>
             </main>
           }

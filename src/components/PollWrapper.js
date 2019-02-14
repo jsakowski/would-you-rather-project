@@ -31,7 +31,9 @@ class PollWrapper extends Component {
         <CardBody>
           <Container>
             <Row>
-              <Col xs={4} md={4}><CardImg variant='left' className='img-avatar-medium' src={authorAvatar} /></Col>
+              <Col xs={4} md={4}>
+                <CardImg className='img-avatar-medium' src={authorAvatar} />
+              </Col>
               <Col xs={8}>
                 {this.props.children}
               </Col>
