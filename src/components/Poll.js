@@ -1,40 +1,57 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { CardTitle } from 'reactstrap'
+import { connect } from 'react-redux'
+import { getMemberVote, formatPoll4Vote, formatPoll, getUser } from '../utils/pollHelper'
+import { handleSaveQuestionAnswer } from '../actions/questions'
+import AnsweredPoll from './AnsweredPoll'
+import UnnsweredPoll from './UnansweredPoll'
+import NotFound from './NotFound'
 import PollWrapper from './PollWrapper'
-import AnswerDetails from './AnswerDetails'
 
 
-class Poll extends Component {
-  static propTypes = {
-    author: PropTypes.object.isRequired,
-    poll: PropTypes.object.isRequired,
-    memberVote: PropTypes.number.isRequired,
+class PollContainer extends Component {
+  handleSaveAnswer = (id, answer) => {
+    const { dispatch } = this.props
+    dispatch(handleSaveQuestionAnswer(id, answer))
   }
 
   render() {
-    const { author, poll, memberVote } = this.props
-
-    const totalVotes = poll.option1.votes + poll.option2.votes
+    const { memberVote, poll, author } = this.props
+    if (poll === null)
+      return (<NotFound />)
 
     return (
       <PollWrapper headerText={`Asked by ${author.name}`} authorAvatar={author.avatarURL} isCancelButton={true}>
-        <CardTitle tag='h1'>Result</CardTitle>
-        <AnswerDetails
-          text={poll.option1.text}
-          votes={poll.option1.votes}
-          totalVotes={totalVotes}
-          isVotedByAuthedUser={memberVote === 1}
-          isWinner={poll.option1.votes >= poll.option2.votes} />
-        <AnswerDetails
-          text={poll.option2.text}
-          votes={poll.option2.votes}
-          totalVotes={totalVotes}
-          isVotedByAuthedUser={memberVote === 2}
-          isWinner={poll.option2.votes >= poll.option1.votes} />
+      {
+         memberVote === 0
+            ? <UnnsweredPoll handleSaveAnswer={this.handleSaveAnswer} {...this.props} />
+            : <AnsweredPoll {...this.props} />
+      }
       </PollWrapper>
-    )
+     )
+  }
+}
+function mapStateToProps({ authedUser, users, questions }, props) {
+  const { id } = props.match.params
+
+  const poll = questions[id]
+
+  if (poll === undefined) {
+    return {
+      poll: null,
+    }
+  }
+
+  const memberVote = getMemberVote(poll, authedUser)
+
+  const formattedPoll = (memberVote === 0)
+    ? formatPoll4Vote(poll)
+    : formatPoll(poll)
+
+  return {
+    author: getUser(users[poll.author]),
+    poll: formattedPoll,
+    memberVote: memberVote,
   }
 }
 
-export default Poll
+export default connect(mapStateToProps)(PollContainer)

@@ -1,34 +1,11 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Nav, NavItem, NavLink, TabContent, TabPane, Alert } from 'reactstrap'
-import PollList from './PollList'
+import { Nav, TabContent } from 'reactstrap'
+import PollContent from './PollContent'
+import PollTabLink from './PollTabLink'
+import { tabs } from '../utils/HomeTabs'
 
-const tabs = [
-  {
-    id: 'unanswered',
-    name: 'Unanswered Questions',
-    emptyText:
-      <Fragment>
-        <h4 className='alert-heading'>Well done!</h4>
-        <p>
-          No more questions to answer. I’m sure you’ll add at least
-          a few would you rather questions that are really hard to answer!
-          Some can be ridiculous, some quite deep, while others - just fun to answer.
-        </p>
-      </Fragment>
-  },
-  {
-    id: 'answered',
-    name: 'Answered Questions',
-    emptyText:
-      <Fragment>
-      <p>You did not answer any questions yet.
-        The perfect list of carefully chosen would you rather questions are wating for you.
-      </p>
-      </Fragment>
-  }
-]
 
 class Home extends Component {
   state = {
@@ -60,7 +37,7 @@ class Home extends Component {
     this.toggle(tab)
   }
 
-  handleToggle = (e) => {
+  handleSwitch = (e) => {
     e.preventDefault();
     e.stopPropagation()
 
@@ -81,31 +58,25 @@ class Home extends Component {
         <Nav tabs className='nav-fill'>
        {
           tabs.map((tab) => (
-            <NavItem key={tab.id}>
-              <NavLink
-                href={`#${tab.id}`}
-                id={tab.id}
-                className={activeTab === tab.id ? 'active' : ''}
-                onClick={(e) => { this.handleToggle(e) }}
-              >
-                {tab.name}
-            </NavLink>
-            </NavItem>
+            <PollTabLink
+              key={tab.id}
+              activeTab={activeTab}
+              tabId={tab.id}
+              tabName={tab.name}
+              handleSwitch={this.handleSwitch}
+            />
          ))
         }
         </Nav>
         <TabContent activeTab={activeTab}>
           {
             tabs.map((tab) => (
-              <TabPane tabId={tab.id} key={tab.id} className={activeTab === tab.id ? 'show active' : ''}>
-              {
-                this.props[tab.id].length > 0
-                  ? <PollList items={this.props[tab.id]} homeTab={tab.id} />
-                  : <Alert color='info' className='mt-3'>
-                      {tab.emptyText}
-                    </Alert>
-              }
-              </TabPane>
+              <PollContent
+                key={tab.id}
+                activeTab={activeTab}
+                tabId={tab.id}
+                polls={this.props[tab.id]}
+                noPollsText={tab.emptyText} />
             ))
           }
         </TabContent>

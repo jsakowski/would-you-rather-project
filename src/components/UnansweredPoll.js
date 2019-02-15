@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import PollWrapper from './PollWrapper'
 import PropTypes from 'prop-types'
-import { CardTitle, Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import { CardTitle, CardBody, Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
-class PollVoter extends Component {
+class UnansweredPoll extends Component {
   static propTypes = {
-    author: PropTypes.object.isRequired,
     poll: PropTypes.object.isRequired,
     handleSaveAnswer: PropTypes.func.isRequired,
   }
@@ -32,12 +30,11 @@ class PollVoter extends Component {
     handleSaveAnswer(poll.id, answer)
   }
 
-  render () {
-    const { author, poll } = this.props
-    console.log('PollVoter.render', author, poll)
+  render() {
+    const { poll } = this.props
 
     return (
-      <PollWrapper headerText={`${author.name} asked:`} authorAvatar={author.avatarURL} isCancelButton={true}>
+      <CardBody>
         <CardTitle tag='h1'>Would you rather...</CardTitle>
         <Form id='poll' onSubmit={this.handleSubmit}>
           <FormGroup key='optionOne' check>
@@ -60,9 +57,9 @@ class PollVoter extends Component {
           </FormGroup>
           <Button className='mt-4 btn-block' color='primary' type='submit'>Submit</Button>
         </Form>
-      </PollWrapper>
+      </CardBody>
     )
   }
 }
 
-export default PollVoter
+export default UnansweredPoll
