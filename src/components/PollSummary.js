@@ -1,38 +1,26 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { CardTitle, CardText, Button } from 'reactstrap';
+import { Link } from 'react-router-dom'
+import { CardTitle, CardText } from 'reactstrap';
 import PropTypes from 'prop-types'
 import PollWrapper from './PollWrapper'
 import { getUser } from '../utils/pollHelper'
 
 
-class PollSummary extends Component {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    homeTab: PropTypes.string.isRequired,
-  }
-
-  hadleViewPoll = (e) => {
-    const {history, id, homeTab} = this.props
-
-    e.preventDefault()
-    history.push({
-      pathname: `/question/${id}`,
-      state: { returnTab: homeTab }
-    })
-  }
-
-  render() {
-    const {name, avatarURL, text} = this.props
-    return (
-      <PollWrapper headerText={`${name} asked:`} authorAvatar={avatarURL}>
-        <CardTitle tag='h5'>Would you rather</CardTitle>
-        <CardText>{text}...</CardText>
-        <Button color='primary' className='btn-block' onClick={this.hadleViewPoll}>View Poll</Button>
-      </PollWrapper>
-    )
-  }
+const PollSummary = (props) => {
+  const { name, avatarURL, text, id, homeTab } = props
+  return (
+    <PollWrapper headerText={`${name} asked:`} authorAvatar={avatarURL}>
+      <CardTitle tag='h5'>Would you rather</CardTitle>
+      <CardText>{text}...</CardText>
+      <Link
+        className='btn-block btn btn-primary'
+        to={{
+          pathname: `/question/${id}`,
+          state: { returnTab: homeTab }
+      }}>View Poll</Link>
+    </PollWrapper>
+  )
 }
 
 function mapStateToProps({ authedUser, users, questions }, { id }) {
@@ -44,4 +32,9 @@ function mapStateToProps({ authedUser, users, questions }, { id }) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(PollSummary))
+PollSummary.propTypes = {
+  id: PropTypes.string.isRequired,
+  homeTab: PropTypes.string.isRequired,
+}
+
+export default connect(mapStateToProps)(PollSummary)
