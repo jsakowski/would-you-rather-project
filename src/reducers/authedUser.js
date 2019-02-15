@@ -1,6 +1,6 @@
 import { LOGIN_SUCCESS, LOGOUT } from '../actions/authedUser'
 
-export default function authedUser (state = null, action) {
+const authedUser = (state = null, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS :
       return action.id
@@ -9,4 +9,9 @@ export default function authedUser (state = null, action) {
     default :
       return state
   }
+}
+export default authedUser
+
+export const getAuthedUserId = (state) => {
+  return state;
 }

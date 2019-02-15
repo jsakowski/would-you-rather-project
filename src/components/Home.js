@@ -5,7 +5,7 @@ import { Nav, TabContent } from 'reactstrap'
 import PollContent from './PollContent'
 import PollTabLink from './PollTabLink'
 import { tabs } from '../utils/HomeTabs'
-
+import { getQuestionIds } from '../reducers'
 
 class Home extends Component {
   state = {
@@ -85,17 +85,18 @@ class Home extends Component {
   }
 }
 
-function mapStateToProps({ authedUser, users, questions }) {
-  let answeredIds = Object.keys(users[authedUser].answers)
+function mapStateToProps(state) {
+  return getQuestionIds(state)
+  // const answeredIds = Object.keys(users[authedUser].answers)
 
-  return {
-    answered: answeredIds
-      .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
+  // return {
+  //   answered: answeredIds
+  //     .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
 
-    unanswered: Object.keys(questions)
-      .filter(id => !answeredIds.includes(id))
-      .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
-  }
+  //   unanswered: Object.keys(questions)
+  //     .filter(id => !answeredIds.includes(id))
+  //     .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
+  // }
 }
 
 export default withRouter(connect(mapStateToProps)(Home))

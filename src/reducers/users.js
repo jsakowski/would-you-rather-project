@@ -1,7 +1,7 @@
 import { GET_USERS } from '../actions/users'
 import { SAVE_QUESTION_ANSWER, ADD_QUESTION } from '../actions/questions'
 
-export default function users (state = {}, action) {
+const users = (state = {}, action) => {
   switch(action.type) {
     case GET_USERS :
       return {
@@ -37,4 +37,9 @@ export default function users (state = {}, action) {
     default:
       return state
   }
+}
+export default users
+
+export const getAnswers = (state, authedUser) => {
+  return Object.keys(state[authedUser].answers)
 }

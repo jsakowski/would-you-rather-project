@@ -33,3 +33,18 @@ export default function questions(state = {}, action) {
       return state
   }
 }
+
+export function getQuestionIds(state, answeredIds, filter) {
+  switch (filter) {
+    case 'answered':
+      return answeredIds.sort((a, b) => state[b].timestamp - state[a].timestamp)
+
+    case 'unanswered':
+      return Object.keys(state)
+        .filter(id => !answeredIds.includes(id))
+        .sort((a, b) => state[b].timestamp - state[a].timestamp)
+
+    default:
+      return []
+  }
+}
