@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { getMemberVote, formatPoll4Vote, formatPoll, getPollAuthor } from '../utils/pollHelper'
+import { getMemberVote, formatPoll4Vote, formatPoll, getUser } from '../utils/pollHelper'
 import { handleSaveQuestionAnswer } from '../actions/questions'
 import PollVoter from './PollVoter'
 import Poll from './Poll'
@@ -46,7 +46,7 @@ function mapStateToProps({ authedUser, users, questions }, props) {
     : formatPoll(poll)
 
   return {
-    author: getPollAuthor(users[poll.author]),
+    author: getUser(users[poll.author]),
     poll: formattedPoll,
     memberVote: memberVote,
   }

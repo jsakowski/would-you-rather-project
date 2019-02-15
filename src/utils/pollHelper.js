@@ -31,7 +31,7 @@ export function formatPoll4Vote(poll) {
 }
 
 
-export function getPollAuthor (author) {
+export function getUser(author) {
   return {
     name: author.name,
     avatarURL: author.avatarURL,

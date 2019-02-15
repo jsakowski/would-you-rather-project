@@ -32,7 +32,7 @@ const tabs = [
 
 class Home extends Component {
   state = {
-    activeTab: 'unanswered'
+    activeTab: null
   }
 
   toggle = (tab) => {
@@ -46,13 +46,17 @@ class Home extends Component {
   }
 
   componentDidMount = () => {
-    const returnTab = this.props.location.state === undefined ? undefined : this.props.location.state.returnTab
+    const { returnTab } = this.props.location.state || { returnTab: undefined }
+    console.log('Home - componentDidMount- returnTab', returnTab)
+
+    //const returnTab = this.props.location.state === undefined ? undefined : this.props.location.state.returnTab
 
     if (returnTab !== undefined) {
       this.props.history.replace({ ...this.props.location.pathname, state: {} });
     }
 
     const tab = returnTab === undefined ? 'unanswered' : returnTab
+    console.log('Home - componentDidMount', tab, this.state.activeTab)
     this.toggle(tab)
   }
 
@@ -66,7 +70,11 @@ class Home extends Component {
 
   render() {
     const { activeTab } = this.state
-    const { tabContent } = this.props
+
+    console.log('Home - render', activeTab)
+
+    if (activeTab == null)
+      return null
 
     return (
       <div>
@@ -91,8 +99,8 @@ class Home extends Component {
             tabs.map((tab) => (
               <TabPane tabId={tab.id} key={tab.id} className={activeTab === tab.id ? 'show active' : ''}>
               {
-                tabContent[tab.id].length > 0
-                  ? <Category items={tabContent[tab.id]} homeTab={tab.id}/>
+                this.props[tab.id].length > 0
+                  ? <Category items={this.props[tab.id]} homeTab={tab.id}/>
                   : <Alert color='info' className='mt-3'>
                       {tab.emptyText}
                     </Alert>
@@ -107,17 +115,15 @@ class Home extends Component {
 }
 
 function mapStateToProps({ authedUser, users, questions }) {
-  let answeredIds = authedUser === null ? [] : Object.keys(users[authedUser].answers)
+  let answeredIds = Object.keys(users[authedUser].answers)
 
   return {
-    tabContent: {
-      answered: answeredIds
-        .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
+    answered: answeredIds
+      .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
 
-      unanswered: Object.keys(questions)
-        .filter(id => !answeredIds.includes(id))
-        .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
-    }
+    unanswered: Object.keys(questions)
+      .filter(id => !answeredIds.includes(id))
+      .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
   }
 }
 

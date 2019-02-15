@@ -11,37 +11,44 @@ import NewPoll from './NewPoll'
 import LoadingBar from 'react-redux-loading-bar'
 import LeaderBoard from './LeaderBoard';
 import NotFound from './NotFound'
+import ProtectedRoute from './ProtectedRoute'
 
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(handleInitialData())
+    const { dispatch } = this.props
+    dispatch(handleInitialData())
     console.log('App - componentDidMount', this.props.loading, this.props.isAuthenticated)
   }
 
   render() {
-    console.log('App - render', this.props.loading, this.props.isAuthenticated)
+    const { loading, isAuthenticated } = this.props
+
     return (
       <Router>
         <Fragment>
           <header>
             <div className='fixed-top'><LoadingBar showFastActions /></div>
-            <AppNav />
+            {
+              isAuthenticated &&
+              <AppNav />
+            }
           </header>
-          {
-            (this.props.isAuthenticated && !this.props.loading) &&
-              <main role='main' className='container'>
+             <main role='main' className='container'>
                 <div className='page'>
-                  <Switch>
-                    <Route path='/' exact component={Home} />
-                    <Route path='/question/:id' component={PollContainer} />
-                    <Route path='/new' component={NewPoll} />
-                    <Route path='/leaderboard' component={LeaderBoard} />
-                    <Route component={NotFound} />
-                  </Switch>
+                {
+                  (!loading) &&
+                    <Switch>
+                      <Route path='/login' component={Login} />
+                      <ProtectedRoute path='/' exact component={Home} />
+                      <ProtectedRoute path='/question/:id' component={PollContainer} />
+                      <ProtectedRoute path='/new' component={NewPoll} />
+                      <ProtectedRoute path='/leaderboard' component={LeaderBoard} />
+                      <Route component={NotFound} />
+                    </Switch>
+                }
                 </div>
               </main>
-          }
         </Fragment>
       </Router>
     );

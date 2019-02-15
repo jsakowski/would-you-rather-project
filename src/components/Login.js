@@ -1,28 +1,74 @@
 import React, { Component } from 'react'
+import { Card, CardBody, CardTitle, CardSubtitle, Form, FormGroup, Input, Button } from 'reactstrap';
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { login } from '../actions/authedUser'
 
 class Login extends Component {
+  state = {
+    user: null,
+    redirectToReferrer: false,
+  }
+
+  onChange = (e) => {
+    e.preventDefault()
+    const user = e.target.value
+    console.log('Login - onChange', user)
+
+    this.setState({
+      user,
+    })
+  }
+
+  onSubmit = (e) => {
+    const { dispatch } = this.props
+    e.preventDefault();
+
+    dispatch(login(this.state.user))
+    this.setState({
+      redirectToReferrer: true,
+    })
+  }
+
   render() {
+    const { from } = this.props.location.state || { from: { pathname: '/' } }
+    const { users } = this.props
+    const { redirectToReferrer } = this.state
+
+    console.log('Login - render', this.state, from)
+
+    if (redirectToReferrer === true) {
+      return <Redirect to={from} />
+    }
+
     return (
-      <div className='card'>
-        <div className='card-body'>
-          <h1 className='card-title'>Welcome to the Would You Rather App</h1>
-          <h6 className='card-subtitle mb-5 text-muted'>Please log in to continue</h6>
-          <form className='form-signin'>
-            <div className='form-group'>
-              <label className='sr-only'>Select a user</label>
-              <select className='form-control' id='auth'>
-                <option>Please select an user</option>
-                <option>Sarah Edo</option>
-                <option>Tyler McGinnis</option>
-                <option>John Doe</option>
-              </select>
-            </div>
-            <button className='btn btn-lg btn-primary btn-block' type='submit'>Log in</button>
-          </form>
-        </div>
-      </div>
+      <Card>
+        <CardBody>
+          <CardTitle tag='h1'>Welcome to the Would You Rather App</CardTitle>
+          <CardSubtitle tag='h6' className='mt-4'>Please log in to continue</CardSubtitle>
+          <Form className='mt-4' onSubmit={this.onSubmit}>
+            <FormGroup>
+              <Input type="select" name="user" id="user" onChange={this.onChange} required>
+                <option key='empty' value=''>Please select an user</option>
+                {
+                  users.map((user) => (
+                    <option key={user.id} value={user.id}>{user.name}</option>
+                  ))
+                }
+             </Input>
+            </FormGroup>
+            <Button className='btn-block' color='primary' type='submit'>Log in</Button>
+          </Form>
+        </CardBody>
+      </Card>
     )
   }
 }
 
-export default Login
+function mapStateToProps({ users }) {
+  return {
+    users: Object.values(users)
+  }
+}
+
+export default connect(mapStateToProps)(Login)

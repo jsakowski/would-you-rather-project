@@ -13,10 +13,18 @@ class PollWrapper extends Component {
 
   render () {
     const { headerText, authorAvatar, isCancelButton} = this.props
-    const returnTab =
+
+    let { returnTab } = this.props.location.state || { returnTab: undefined }
+
+    console.log('PollWrapper - render returnTab1', returnTab)
+
+    returnTab =
       this.props === undefined || this.props.location === undefined || this.props.location.state === undefined
         ? undefined
         : this.props.location.state.returnTab
+
+    console.log('PollWrapper - render returnTab2', returnTab)
+
     const returnState = returnTab !== undefined ? { returnTab: returnTab } : {}
 
     return (

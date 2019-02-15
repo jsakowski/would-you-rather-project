@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { CardTitle, CardText, Button } from 'reactstrap';
 import PropTypes from 'prop-types'
 import PollWrapper from './PollWrapper'
-import { getPollAuthor } from '../utils/pollHelper'
+import { getUser } from '../utils/pollHelper'
 
 
 class PollSummary extends Component {
@@ -39,7 +39,7 @@ function mapStateToProps({ authedUser, users, questions }, { id }) {
   const poll = questions[id]
 
   return {
-    ...getPollAuthor(users[poll.author]),
+    ...getUser(users[poll.author]),
     text: poll.optionOne.text,
   }
 }
