@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Navbar, NavbarToggler, Collapse, Nav, NavItem, NavLink as BootstrapNavLink } from 'reactstrap'
 import { NavLink, withRouter} from 'react-router-dom'
-import { setHomeActiveTab } from '../actions/homeState'
 
 
 class AppNav extends Component {
@@ -19,12 +18,6 @@ class AppNav extends Component {
   logout = (e) => {
     e.preventDefault();
   }
-
-  // resetHomeState = (e) => {
-  //   console.log('Home - resetHomeState')
-  //   const { dispatch } = this.props
-  //   dispatch(setHomeActiveTab())
-  // }
 
   render () {
     return (

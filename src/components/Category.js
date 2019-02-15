@@ -1,16 +1,22 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import PollSummary from './PollSummary'
 
 const Category = (props) => {
+  const { items, homeTab } = props
   return (
       <ul className='list-unstyled'>
-        {props.items.map((id) => (
+        {items.map((id) => (
           <li key={id} className='pt-3'>
-            <PollSummary id={id} />
+            <PollSummary id={id} homeTab={homeTab} />
           </li>
         ))}
       </ul>
   )
 }
+Category.propTypes = {
+  items: PropTypes.array.isRequired,
+  homeTab: PropTypes.string.isRequired
+};
 
 export default Category

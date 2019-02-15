@@ -18,7 +18,7 @@ class Poll extends Component {
     const totalVotes = poll.option1.votes + poll.option2.votes
 
     return (
-      <PollWrapper headerText={`Asked by ${author.name}`} authorAvatar={author.avatarURL} isCancelButton={true}>
+      <PollWrapper headerText={`Asked by ${author.name}`} authorAvatar={author.avatarURL} isCancelButton={true} returnTo='answered'>
         <CardTitle tag='h1'>Result</CardTitle>
         <AnswerDetails
           text={poll.option1.text}

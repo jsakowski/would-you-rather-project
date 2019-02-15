@@ -2,14 +2,25 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { CardTitle, CardText, Button } from 'reactstrap';
+import PropTypes from 'prop-types'
 import PollWrapper from './PollWrapper'
 import { getPollAuthor } from '../utils/pollHelper'
 
 
 class PollSummary extends Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    homeTab: PropTypes.string.isRequired,
+  }
+
   hadleViewPoll = (e) => {
+    const {history, id, homeTab} = this.props
+
     e.preventDefault()
-    this.props.history.push(`/question/${this.props.id}`)
+    history.push({
+      pathname: `/question/${id}`,
+      state: { returnTab: homeTab }
+    })
   }
 
   render() {

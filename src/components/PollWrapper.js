@@ -12,7 +12,14 @@ class PollWrapper extends Component {
   }
 
   handleCancel() {
-    this.props.history.push('/')
+    const { location }  = this.props
+    const returnTab = location.state === undefined ? undefined : location.state.returnTab
+    const returnState = returnTab !== undefined ? { returnTab: returnTab } : {}
+
+    this.props.history.push({
+      pathname: '/',
+      state: returnState
+    })
   }
 
   render () {
