@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Nav, NavItem, NavLink, TabContent, TabPane, Alert } from 'reactstrap'
-import Category from './Category'
+import PollList from './PollList'
 
 const tabs = [
   {
@@ -100,7 +100,7 @@ class Home extends Component {
               <TabPane tabId={tab.id} key={tab.id} className={activeTab === tab.id ? 'show active' : ''}>
               {
                 this.props[tab.id].length > 0
-                  ? <Category items={this.props[tab.id]} homeTab={tab.id}/>
+                  ? <PollList items={this.props[tab.id]} homeTab={tab.id} />
                   : <Alert color='info' className='mt-3'>
                       {tab.emptyText}
                     </Alert>
