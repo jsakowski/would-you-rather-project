@@ -2,30 +2,29 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Card, CardHeader, CardBody, CardImg, CardTitle, Row, Col, Badge } from 'reactstrap'
 
-class LeaderBoard extends Component {
-  render() {
-    const { users } = this.props
-    const sortedUsers = Object.values(users)
-      .map((user) => {
-        const questionsTotal = user.questions.length
-        const answersTotal = Object.keys(user.answers).length
+const LeaderBoard = (props) => {
+  const { users } = props
+  const sortedUsers = Object.values(users)
+    .map((user) => {
+      const questionsTotal = user.questions.length
+      const answersTotal = Object.keys(user.answers).length
 
-        return {
-          id: user.id,
-          name: user.name,
-          avatarURL: user.avatarURL,
-          questionsTotal: questionsTotal,
-          answersTotal: answersTotal,
-          score: questionsTotal + answersTotal
-        }
-      })
-      .sort((a, b) => b.score - a.score)
+      return {
+        id: user.id,
+        name: user.name,
+        avatarURL: user.avatarURL,
+        questionsTotal: questionsTotal,
+        answersTotal: answersTotal,
+        score: questionsTotal + answersTotal
+      }
+    })
+    .sort((a, b) => b.score - a.score)
 
     return (
       <Fragment>
         <h1>Leader Board</h1>
         <ul className='list-unstyled'>
-        {
+          {
             sortedUsers.map((user) => (
               <li key={user.id} className='pt-3'>
                 <Card>
@@ -56,15 +55,14 @@ class LeaderBoard extends Component {
                         </Card>
                       </Col>
                     </Row>
-                </CardBody>
+                  </CardBody>
                 </Card>
               </li>
-          ))
-        }
+            ))
+          }
         </ul>
       </Fragment>
     )
-  }
 }
 
 function mapStateToProps({ users }) {
