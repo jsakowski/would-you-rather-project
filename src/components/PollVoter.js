@@ -29,8 +29,6 @@ class PollVoter extends Component {
     const { answer } = this.state
     const { handleSaveAnswer, poll } = this.props
 
-    console.log('PollVoter.handleSubmit', poll.id, answer)
-
     handleSaveAnswer(poll.id, answer)
   }
 
@@ -41,7 +39,7 @@ class PollVoter extends Component {
     return (
       <PollWrapper headerText={`${author.name} asked:`} authorAvatar={author.avatarURL} isCancelButton={true}>
         <CardTitle tag='h1'>Would you rather...</CardTitle>
-        <Form id='poll' onSubmit={(e) => {this.handleSubmit(e)}}>
+        <Form id='poll' onSubmit={this.handleSubmit}>
           <FormGroup key='optionOne' check>
             <Input
               type='radio'

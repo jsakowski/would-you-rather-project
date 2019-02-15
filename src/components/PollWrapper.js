@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card, CardHeader, CardBody, CardImg, Container, Row, Col, Button } from 'reactstrap';
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 
@@ -11,28 +11,24 @@ class PollWrapper extends Component {
     isCancelButton: PropTypes.bool,
   }
 
-  handleCancel() {
-    const { location }  = this.props
-    const returnTab = location.state === undefined ? undefined : location.state.returnTab
-    const returnState = returnTab !== undefined ? { returnTab: returnTab } : {}
-
-    this.props.history.push({
-      pathname: '/',
-      state: returnState
-    })
-  }
-
   render () {
     const { headerText, authorAvatar, isCancelButton} = this.props
+    const returnTab =
+      this.props === undefined || this.props.location === undefined || this.props.location.state === undefined
+        ? undefined
+        : this.props.location.state.returnTab
+    const returnState = returnTab !== undefined ? { returnTab: returnTab } : {}
 
     return (
       <Card>
         <CardHeader>
           {headerText}
           {
-            isCancelButton === true
-              ? <Button close onClick={() => this.handleCancel()} />
-              : null
+            isCancelButton &&
+            <Link to={{
+              pathname: '/',
+              state: returnState
+            }}><Button close /></Link>
           }
         </CardHeader>
         <CardBody>

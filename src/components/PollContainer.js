@@ -4,6 +4,7 @@ import { getMemberVote, formatPoll4Vote, formatPoll, getPollAuthor } from '../ut
 import { handleSaveQuestionAnswer } from '../actions/questions'
 import PollVoter from './PollVoter'
 import Poll from './Poll'
+import NotFound from './NotFound'
 
 class PollContainer extends Component {
   handleSaveAnswer = (id, answer) => {
@@ -13,14 +14,15 @@ class PollContainer extends Component {
 
   render() {
     const { memberVote, author, poll } = this.props
-    console.log('PollContainer: render', poll, memberVote)
 
     return (
       <Fragment>
-        {memberVote === 0
+        {poll === null && <NotFound />}
+        {poll !== null && (
+          memberVote === 0
           ? <PollVoter author={author} poll={poll} handleSaveAnswer={this.handleSaveAnswer} />
           : <Poll author={author} poll={poll} memberVote={memberVote} />
-        }
+        )}
       </Fragment>
     )
   }
@@ -29,6 +31,13 @@ function mapStateToProps({ authedUser, users, questions }, props) {
   const { id } = props.match.params
 
   const poll = questions[id]
+
+  if (poll === undefined) {
+    return {
+      poll: null,
+    }
+  }
+
   const author = users[poll.author]
   const memberVote = getMemberVote(poll, authedUser)
 
@@ -37,7 +46,7 @@ function mapStateToProps({ authedUser, users, questions }, props) {
     : formatPoll(poll)
 
   return {
-    author: getPollAuthor(author),
+    author: getPollAuthor(users[poll.author]),
     poll: formattedPoll,
     memberVote: memberVote,
   }

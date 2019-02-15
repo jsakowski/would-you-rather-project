@@ -37,10 +37,9 @@ class PollSummary extends Component {
 
 function mapStateToProps({ authedUser, users, questions }, { id }) {
   const poll = questions[id]
-  const author = users[poll.author]
 
   return {
-    ...getPollAuthor(author),
+    ...getPollAuthor(users[poll.author]),
     text: poll.optionOne.text,
   }
 }

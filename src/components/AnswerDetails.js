@@ -14,10 +14,8 @@ const AnswerDetails = (props) => {
   return (
     <Alert color={variant} className='poll-secondary'>
       {
-        isVotedByAuthedUser ?
+        isVotedByAuthedUser &&
           <div className='text-right'><Badge className='p-2 rounded-circle' color='warning'>Your<br />Vote</Badge></div>
-        :
-        null
       }
       <p>Would you rather {text}?</p>
       <div className='text-center'>{percentage === 0 ? '' : `${percentage}%`}</div>

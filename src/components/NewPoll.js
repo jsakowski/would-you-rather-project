@@ -64,7 +64,7 @@ class NewPoll extends Component {
                 id='optionOne'
                 value={optionOne}
                 placeholder='Enter option one text here'
-                onChange={(e) => this.handleChange(e)}
+                onChange={this.handleChange}
                 required
               />
               <FormFeedback>Please enter option one text.</FormFeedback>
@@ -77,7 +77,7 @@ class NewPoll extends Component {
                 id='optionTwo'
                 value={optionTwo}
                 placeholder='Enter option two text here'
-                onChange={(e) => this.handleChange(e)}
+                onChange={this.handleChange}
                 required
               />
               <FormFeedback>Please enter option two text.</FormFeedback>
