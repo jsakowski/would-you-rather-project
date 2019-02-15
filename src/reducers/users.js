@@ -43,3 +43,21 @@ export default users
 export const getAnswers = (state, authedUser) => {
   return Object.keys(state[authedUser].answers)
 }
+
+export const getLeaders = (state) => {
+  return Object.values(state)
+    .map((user) => {
+      const questionsTotal = user.questions.length
+      const answersTotal = Object.keys(user.answers).length
+
+      return {
+        id: user.id,
+        name: user.name,
+        avatarURL: user.avatarURL,
+        questionsTotal: questionsTotal,
+        answersTotal: answersTotal,
+        score: questionsTotal + answersTotal
+      }
+    })
+    .sort((a, b) => b.score - a.score)
+}

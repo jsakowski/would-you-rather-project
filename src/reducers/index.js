@@ -11,7 +11,7 @@ export default combineReducers({
   loadingBar: loadingBarReducer,
 })
 
-export function getQuestionIds(state) {
+export const getQuestionIds = (state) => {
   const { authedUser, users, questions} = state
 
   const uid = fromAuthedUser.getAuthedUserId(authedUser)
@@ -21,4 +21,9 @@ export function getQuestionIds(state) {
     'answered': fromQuestions.getQuestionIds(questions, answeres, 'answered'),
     'unanswered': fromQuestions.getQuestionIds(questions, answeres, 'unanswered')
   }
+}
+
+export const getLeaders = (state) => {
+  const { users } = state
+  return fromUsers.getLeaders(users)
 }
