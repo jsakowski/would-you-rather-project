@@ -26,7 +26,7 @@ class AppNav extends Component {
   }
 
   render () {
-  
+
     return (
       <Navbar color='dark' dark expand='sm'>
         <NavbarToggler onClick={(e) => this.toggle(e)} />
@@ -42,7 +42,7 @@ class AppNav extends Component {
               </NavLink>
             </NavItem>
             <NavItem >
-              <NavLink className='nav-link' to='/new' activeClassName='active'>New Question</NavLink>
+              <NavLink className='nav-link' to='/add' activeClassName='active'>New Question</NavLink>
             </NavItem>
             <NavItem>
               <NavLink className='nav-link' to='/leaderboard'>Leader Board</NavLink>
