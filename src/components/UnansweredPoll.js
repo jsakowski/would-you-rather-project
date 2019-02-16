@@ -32,7 +32,6 @@ class UnansweredPoll extends Component {
 
   render() {
     const { poll } = this.props
-
     return (
       <CardBody>
         <CardTitle tag='h1'>Would you rather...</CardTitle>
@@ -44,7 +43,7 @@ class UnansweredPoll extends Component {
               id='optionOne'
               onChange={this.handleChange}
               required />
-            <Label check>{poll.optionOne}</Label>
+            <Label check>{poll.optionOne.text}</Label>
           </FormGroup>
           <FormGroup key='optionTwo' className='mt-2' check>
             <Input
@@ -53,7 +52,7 @@ class UnansweredPoll extends Component {
               id='optionTwo'
               onChange={this.handleChange}
               required />
-            <Label check>{poll.optionTwo}</Label>
+            <Label check>{poll.optionTwo.text}</Label>
           </FormGroup>
           <Button className='mt-4 btn-block' color='primary' type='submit'>Submit</Button>
         </Form>

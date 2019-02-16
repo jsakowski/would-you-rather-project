@@ -6,7 +6,7 @@ import { handleInitialData } from '../actions/shared'
 import AppNav from './AppNav'
 import Login from './Login'
 import Home from './Home'
-import Poll from './Poll'
+import PollContainer from './PollContainer'
 import NewPoll from './NewPoll'
 import LoadingBar from 'react-redux-loading-bar'
 import LeaderBoard from './LeaderBoard';
@@ -41,7 +41,7 @@ class App extends Component {
                     <Switch>
                       <Route path='/login' component={Login} />
                       <ProtectedRoute path='/' exact component={Home} />
-                      <ProtectedRoute path='/question/:id' component={Poll} />
+                      <ProtectedRoute path='/question/:id' component={PollContainer} />
                       <ProtectedRoute path='/new' component={NewPoll} />
                       <ProtectedRoute path='/leaderboard' component={LeaderBoard} />
                       <Route component={NotFound} />

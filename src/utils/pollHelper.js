@@ -37,3 +37,4 @@ export function getUser(author) {
     avatarURL: author.avatarURL,
   }
 }
+

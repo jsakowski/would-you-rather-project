@@ -34,7 +34,7 @@ export default function questions(state = {}, action) {
   }
 }
 
-export function getQuestionIds(state, answeredIds, filter) {
+export const getQuestionIds = (state, answeredIds, filter) => {
   switch (filter) {
     case 'answered':
       return answeredIds.sort((a, b) => state[b].timestamp - state[a].timestamp)
@@ -47,4 +47,8 @@ export function getQuestionIds(state, answeredIds, filter) {
     default:
       return []
   }
+}
+
+export const getQuestion = (state, qid) => {
+  return state[qid] || null
 }

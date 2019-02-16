@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import PollSummary from './PollSummary'
+import PollContainer from './PollContainer'
 
 const PollList = (props) => {
   const { items, homeTab } = props
@@ -9,7 +9,7 @@ const PollList = (props) => {
     <ul className='list-unstyled'>
       {items.map((id) => (
         <li key={id} className='pt-3'>
-          <PollSummary id={id} homeTab={homeTab} />
+          <PollContainer id={id} type='summary' isCancelButton={false} homeTab={homeTab} />
         </li>
       ))}
     </ul>

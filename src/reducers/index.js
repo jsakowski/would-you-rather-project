@@ -27,3 +27,20 @@ export const getLeaders = (state) => {
   const { users } = state
   return fromUsers.getLeaders(users)
 }
+
+export const formatQuestion = (state, qid) => {
+  const { authedUser, users, questions } = state
+
+  const uid = fromAuthedUser.getAuthedUserId(authedUser)
+  const answer = fromUsers.getUserAnswer(users, qid, uid)
+  const poll = fromQuestions.getQuestion(questions, qid)
+
+  if (poll === null)
+    return { poll: null }
+
+  return {
+    author: fromUsers.getVisibleUser(users, poll.author),
+    poll: poll,
+    vote: answer,
+  }
+}

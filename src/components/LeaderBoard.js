@@ -12,7 +12,7 @@ const LeaderBoard = (props) => {
         <ul className='list-unstyled'>
         {
           leaders.map((user) => (
-            <li key={user.id} className='pt-3'>
+            <li key={user.uid} className='pt-3'>
               <Card>
                 <CardBody>
                   <Row className='no-gutters'>

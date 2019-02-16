@@ -5,30 +5,34 @@ import AnswerDetails from './AnswerDetails'
 
 
 const AnsweredPoll = (props) => {
-  const { poll, memberVote } = props
-  const totalVotes = poll.option1.votes + poll.option2.votes
+  const { poll, vote } = props
+  
+  const optionOneVotes = poll.optionOne.votes.length
+  const optionTwoVotes = poll.optionTwo.votes.length
+  const totalVotes = poll.optionOne.votes.length + poll.optionTwo.votes.length
+
   return (
     <CardBody>
       <CardTitle tag='h1'>Result</CardTitle>
       <AnswerDetails
-        text={poll.option1.text}
-        votes={poll.option1.votes}
+        text={poll.optionOne.text}
+        votes={optionOneVotes}
         totalVotes={totalVotes}
-        isVotedByAuthedUser={memberVote === 1}
-        isWinner={poll.option1.votes >= poll.option2.votes} />
+        isVotedByAuthedUser={vote === 1}
+        isWinner={optionOneVotes >= optionTwoVotes} />
       <AnswerDetails
-        text={poll.option2.text}
-        votes={poll.option2.votes}
+        text={poll.optionTwo.text}
+        votes={optionTwoVotes}
         totalVotes={totalVotes}
-        isVotedByAuthedUser={memberVote === 2}
-        isWinner={poll.option2.votes >= poll.option1.votes} />
+        isVotedByAuthedUser={vote === 2}
+        isWinner={optionTwoVotes >= optionOneVotes} />
     </CardBody>
   )
 }
 
 AnsweredPoll.propTypes = {
   poll: PropTypes.object.isRequired,
-  memberVote: PropTypes.number.isRequired,
+  vote: PropTypes.number.isRequired,
 }
 
 export default AnsweredPoll

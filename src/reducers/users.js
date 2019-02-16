@@ -40,6 +40,14 @@ const users = (state = {}, action) => {
 }
 export default users
 
+export const getVisibleUser = (state, uid) => {
+  return {
+    uid: uid,
+    name: state[uid].name,
+    avatarURL: state[uid].avatarURL
+  }
+}
+
 export const getAnswers = (state, authedUser) => {
   return Object.keys(state[authedUser].answers)
 }
@@ -51,13 +59,23 @@ export const getLeaders = (state) => {
       const answersTotal = Object.keys(user.answers).length
 
       return {
-        id: user.id,
-        name: user.name,
-        avatarURL: user.avatarURL,
+        ...getVisibleUser(state, user.id),
         questionsTotal: questionsTotal,
         answersTotal: answersTotal,
         score: questionsTotal + answersTotal
       }
     })
     .sort((a, b) => b.score - a.score)
+}
+
+export const getUserAnswer = (state, qid, uid) => {
+  const answer = state[uid].answers[qid]
+  switch (answer) {
+    case 'optionOne' :
+      return 1
+    case 'optionTwo' :
+      return 2
+    default :
+      return 0
+  }
 }

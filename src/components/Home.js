@@ -24,16 +24,13 @@ class Home extends Component {
 
   componentDidMount = () => {
     const { returnTab } = this.props.location.state || { returnTab: undefined }
-    console.log('Home - componentDidMount- returnTab', returnTab)
-
-    //const returnTab = this.props.location.state === undefined ? undefined : this.props.location.state.returnTab
 
     if (returnTab !== undefined) {
       this.props.history.replace({ ...this.props.location.pathname, state: {} });
     }
 
     const tab = returnTab === undefined ? 'unanswered' : returnTab
-    console.log('Home - componentDidMount', tab, this.state.activeTab)
+
     this.toggle(tab)
   }
 
@@ -47,8 +44,6 @@ class Home extends Component {
 
   render() {
     const { activeTab } = this.state
-
-    console.log('Home - render', activeTab)
 
     if (activeTab == null)
       return null
@@ -87,16 +82,6 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return getQuestionIds(state)
-  // const answeredIds = Object.keys(users[authedUser].answers)
-
-  // return {
-  //   answered: answeredIds
-  //     .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
-
-  //   unanswered: Object.keys(questions)
-  //     .filter(id => !answeredIds.includes(id))
-  //     .sort((a, b) => questions[b].timestamp - questions[a].timestamp),
-  // }
 }
 
 export default withRouter(connect(mapStateToProps)(Home))

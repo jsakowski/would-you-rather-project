@@ -1,40 +1,29 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { CardTitle, CardText } from 'reactstrap';
+import { CardTitle, CardBody, CardText } from 'reactstrap';
 import PropTypes from 'prop-types'
-import PollWrapper from './PollWrapper'
-import { getUser } from '../utils/pollHelper'
 
 
 const PollSummary = (props) => {
-  const { name, avatarURL, text, id, homeTab } = props
+  const { poll, homeTab } = props
   return (
-    <PollWrapper headerText={`${name} asked:`} authorAvatar={avatarURL}>
+    <CardBody>
       <CardTitle tag='h5'>Would you rather</CardTitle>
-      <CardText>{text}...</CardText>
+      <CardText>{poll.optionOne.text}...</CardText>
       <Link
         className='btn-block btn btn-primary'
         to={{
-          pathname: `/question/${id}`,
+          pathname: `/question/${poll.id}`,
           state: { returnTab: homeTab }
       }}>View Poll</Link>
-    </PollWrapper>
+    </CardBody>
   )
 }
 
-function mapStateToProps({ authedUser, users, questions }, { id }) {
-  const poll = questions[id]
-
-  return {
-    ...getUser(users[poll.author]),
-    text: poll.optionOne.text,
-  }
-}
 
 PollSummary.propTypes = {
-  id: PropTypes.string.isRequired,
+  poll: PropTypes.object.isRequired,
   homeTab: PropTypes.string.isRequired,
 }
 
-export default connect(mapStateToProps)(PollSummary)
+export default PollSummary
