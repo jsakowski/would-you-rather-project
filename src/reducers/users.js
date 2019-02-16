@@ -68,7 +68,7 @@ export const getLeaders = (state) => {
     .sort((a, b) => b.score - a.score)
 }
 
-export const getUserAnswer = (state, qid, uid) => {
+export const getAnswer = (state, qid, uid) => {
   const answer = state[uid].answers[qid]
   switch (answer) {
     case 'optionOne' :

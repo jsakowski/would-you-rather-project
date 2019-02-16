@@ -5,7 +5,7 @@ export const GET_QUESTIONS = 'GET_QUESTIONS'
 export const SAVE_QUESTION_ANSWER = 'SAVE_QUESTION_ANSWER'
 export const ADD_QUESTION = 'ADD_QUESTION'
 
-export function getQuestions(questions) {
+export function loadQuestions(questions) {
   return {
     type: GET_QUESTIONS,
     questions,
@@ -28,7 +28,6 @@ export function handleSaveQuestionAnswer(qid, answer) {
       qid,
       answer
     }
-    console.log('Action handleSaveQuestionAnswer', info)
 
     dispatch(showLoading())
     return saveQuestionAnswer(info)

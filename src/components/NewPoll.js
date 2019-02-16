@@ -50,8 +50,6 @@ class NewPoll extends Component {
     const { validated, optionOne, optionTwo } = this.state;
     const variant = validated ? 'was-validated' : ''
 
-    console.log('NewPoll - render')
-
     return (
       <Card>
         <CardHeader tag='h1'>Create New Question</CardHeader>

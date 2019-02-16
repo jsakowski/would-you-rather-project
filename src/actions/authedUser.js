@@ -1,5 +1,5 @@
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGOUT = 'LOGOUT'
+export const USER_LOGOUT = 'USER_LOGOUT'
 
 export function login(id) {
   return {
@@ -10,6 +10,6 @@ export function login(id) {
 
 export function logout() {
   return {
-    type: LOGOUT
+    type: USER_LOGOUT
   }
 }

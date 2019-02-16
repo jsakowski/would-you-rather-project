@@ -15,11 +15,11 @@ export const getQuestionIds = (state) => {
   const { authedUser, users, questions} = state
 
   const uid = fromAuthedUser.getAuthedUserId(authedUser)
-  const answeres = fromUsers.getAnswers(users, uid)
+  const answers = fromUsers.getAnswers(users, uid)
 
   return {
-    'answered': fromQuestions.getQuestionIds(questions, answeres, 'answered'),
-    'unanswered': fromQuestions.getQuestionIds(questions, answeres, 'unanswered')
+    'answered': fromQuestions.getQuestionIds(questions, answers, 'answered'),
+    'unanswered': fromQuestions.getQuestionIds(questions, answers, 'unanswered')
   }
 }
 
@@ -32,7 +32,7 @@ export const formatQuestion = (state, qid) => {
   const { authedUser, users, questions } = state
 
   const uid = fromAuthedUser.getAuthedUserId(authedUser)
-  const answer = fromUsers.getUserAnswer(users, qid, uid)
+  const answer = fromUsers.getAnswer(users, qid, uid)
   const poll = fromQuestions.getQuestion(questions, qid)
 
   if (poll === null)
@@ -43,4 +43,11 @@ export const formatQuestion = (state, qid) => {
     poll: poll,
     vote: answer,
   }
+}
+
+export const getAuthedUser = (state) => {
+  const { authedUser, users } = state
+
+  const uid = fromAuthedUser.getAuthedUserId(authedUser)
+  return fromUsers.getVisibleUser(users, uid)
 }

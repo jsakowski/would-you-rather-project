@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import '../css/App.css'
-import { handleInitialData } from '../actions/shared'
 import AppNav from './AppNav'
 import Login from './Login'
 import Home from './Home'
@@ -12,13 +11,12 @@ import LoadingBar from 'react-redux-loading-bar'
 import LeaderBoard from './LeaderBoard';
 import NotFound from './NotFound'
 import ProtectedRoute from './ProtectedRoute'
+import { handleInitialData } from '../actions/shared'
 
 
 class App extends Component {
   componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(handleInitialData())
-    console.log('App - componentDidMount', this.props.loading, this.props.isAuthenticated)
+    this.props.dispatch(handleInitialData())
   }
 
   render() {

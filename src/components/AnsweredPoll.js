@@ -6,7 +6,7 @@ import AnswerDetails from './AnswerDetails'
 
 const AnsweredPoll = (props) => {
   const { poll, vote } = props
-  
+
   const optionOneVotes = poll.optionOne.votes.length
   const optionTwoVotes = poll.optionTwo.votes.length
   const totalVotes = poll.optionOne.votes.length + poll.optionTwo.votes.length

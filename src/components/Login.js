@@ -13,7 +13,6 @@ class Login extends Component {
   onChange = (e) => {
     e.preventDefault()
     const user = e.target.value
-    console.log('Login - onChange', user)
 
     this.setState({
       user,
@@ -34,8 +33,6 @@ class Login extends Component {
     const { from } = this.props.location.state || { from: { pathname: '/' } }
     const { users } = this.props
     const { redirectToReferrer } = this.state
-
-    console.log('Login - render', this.state, from)
 
     if (redirectToReferrer === true) {
       return <Redirect to={from} />

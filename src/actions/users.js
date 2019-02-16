@@ -1,8 +1,11 @@
 export const GET_USERS = 'GET_USERS'
 
-export function getUsers(users) {
+export function loadUsers(users) {
   return {
     type: GET_USERS,
     users,
   }
 }
+
+
+

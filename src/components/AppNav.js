@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Navbar, NavbarToggler, Collapse, Nav, NavItem, NavLink as BootstrapNavLink } from 'reactstrap'
-import { NavLink, withRouter, Redirect } from 'react-router-dom'
-import { getUser } from '../utils/pollHelper'
+import { NavLink, withRouter } from 'react-router-dom'
 import { logout } from '../actions/authedUser'
+import { getAuthedUser } from '../reducers'
 
 class AppNav extends Component {
   state = {
     isOpen: false,
-    redirect: false,
   }
 
   toggle = (e) => {
@@ -18,22 +17,16 @@ class AppNav extends Component {
   }
 
   handleLogout = (e) => {
-    const { dispatch } = this.props
+    const { dispatch, history } = this.props
 
     e.preventDefault();
     dispatch(logout())
-    this.setState({
-      redirect: true
-    });
+
+    history.push('/')
   }
 
   render () {
-    const { redirect } = this.state
-
-    if (redirect === true) {
-      return <Redirect to='/' />
-    }
-
+  
     return (
       <Navbar color='dark' dark expand='sm'>
         <NavbarToggler onClick={(e) => this.toggle(e)} />
@@ -70,9 +63,9 @@ class AppNav extends Component {
   }
 }
 
-function mapStateToProps({ authedUser, users }) {
+function mapStateToProps(state) {
   return {
-    ...getUser(users[authedUser])
+    ...getAuthedUser(state)
   }
 }
 
