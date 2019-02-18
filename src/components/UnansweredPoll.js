@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { CardTitle, CardBody, Button, Form, FormGroup, Label, CustomInput } from 'reactstrap'
+import { CardTitle, CardBody, Button, Form, FormGroup, CustomInput } from 'reactstrap'
 
 class UnansweredPoll extends Component {
   static propTypes = {
