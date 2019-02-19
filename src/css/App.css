@@ -15,10 +15,6 @@
   max-width: 8rem;
 }
 
-.poll-secondary.alert-secondary {
-  background: none;
-}
-
 .score-text {
   font-size: 1.15rem;
   padding: 0;
@@ -28,6 +24,14 @@
 }
 .card.score .card-body {
     padding: 1rem;
+}
+
+.poll-card .card-body {
+  padding: 0.50rem
+}
+
+.poll-card .alert {
+  margin-bottom: 0.25rem
 }
 
 @media screen and (max-width: 991px) {

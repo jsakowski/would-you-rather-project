@@ -9,7 +9,7 @@ const PollWrapper = (props) => {
   const returnState = returnTab !== undefined ? { returnTab: returnTab } : {}
 
   return (
-    <Card>
+    <Card className='poll-card'>
       <CardHeader>
         {headerText}
         {
@@ -21,7 +21,7 @@ const PollWrapper = (props) => {
         }
       </CardHeader>
       <CardBody>
-        <Container>
+        <Container fluid>
           <Row>
             <Col xs={4} md={4}>
               <CardImg className='img-avatar-medium' src={authorAvatar} />

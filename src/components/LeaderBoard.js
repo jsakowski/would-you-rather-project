@@ -34,7 +34,7 @@ const LeaderBoard = (props) => {
                       <Card className='text-center score'>
                         <CardHeader>Score</CardHeader>
                         <CardBody>
-                          <Badge className='p-4 rounded-circle' color='success'>
+                          <Badge className='p-4 rounded-circle' color='info'>
                             <p className='font-weight-bold score-text'>{user.score}</p>
                           </Badge>
                         </CardBody>
