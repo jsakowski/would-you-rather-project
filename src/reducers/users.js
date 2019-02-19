@@ -79,3 +79,7 @@ export const getAnswer = (state, qid, uid) => {
       return 0
   }
 }
+
+export const getUsers = (state) => {
+  return Object.values(state)
+}

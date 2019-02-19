@@ -51,3 +51,8 @@ export const getAuthedUser = (state) => {
   const uid = fromAuthedUser.getAuthedUserId(authedUser)
   return fromUsers.getVisibleUser(users, uid)
 }
+
+export const getUsers = (state) => {
+  const { users } = state
+  return fromUsers.getUsers(users)
+}

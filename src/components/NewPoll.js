@@ -2,89 +2,103 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Card, CardHeader, CardBody, CardTitle, Form, FormGroup, FormFeedback, Input, Button } from 'reactstrap'
+import { Formik, validateYupSchema, yupToFormErrors} from 'formik'
+import * as yup from 'yup';
 import { handleSaveQuestion } from '../actions/questions'
 
+const getValidationSchema = (values) => {
+  return yup.object().shape({
+    optionOne: yup.string()
+      .required('Please enter option one text')
+      .min(3, 'Answer option should be longer than 2 characters'),
+
+    optionTwo: yup.string()
+      .required('Please enter option two text')
+      .min(3, 'Answer option should be longer than 2 characters')
+      .notOneOf([values.optionOne], 'Answer options should not be the same'),
+  })
+}
+
 class NewPoll extends Component {
-  state = {
-    optionOne: '',
-    optionTwo: '',
-    validated: false,
-  }
 
-  handleChange = (e) => {
-    const id = e.target.id
-    const text = e.target.value
+  validate = (values) => {
+    const validationSchema = getValidationSchema(values)
 
-    this.setState(() => ({
-      [id]: text,
-    }))
-  }
-
-  handleSubmit = (e) => {
-    const form = e.currentTarget;
-    e.preventDefault();
-
-    if (form.checkValidity() === false) {
-      e.stopPropagation();
+    try {
+      validateYupSchema(values, validationSchema, true, {});
     }
-    else {
-      const { optionOne, optionTwo } = this.state
-      const { dispatch } = this.props
-      dispatch(handleSaveQuestion(optionOne, optionTwo))
-
-      this.setState(() => ({
-        optionOne: '',
-        optionTwo: '',
-      }))
-
-      this.props.history.push('/')
+    catch (err) {
+      return yupToFormErrors(err);
     }
-
-    this.setState(() => ({
-      validated: true
-    }))
+    return {};
   }
 
+  submitForm = (values) => {
+    const { optionOne, optionTwo } = values
+    const { dispatch } = this.props
+    dispatch(handleSaveQuestion(optionOne, optionTwo))
+
+    this.props.history.push('/')
+  }
+
+  renderForm = (props) => {
+    return (
+      <Form onSubmit={props.handleSubmit} >
+        <FormGroup>
+          <Input
+            type='text'
+            name='optionOne'
+            id='optionOne'
+            placeholder='Enter option one text here'
+            onChange={props.handleChange}
+            onBlur={props.handleBlur}
+            value={props.values.optionOne}
+            invalid={props.errors.optionOne && props.touched.optionOne}
+            valid={!props.errors.optionOne && props.touched.optionOne}
+         />
+          <FormFeedback>{props.errors.optionOne}</FormFeedback>
+        </FormGroup>
+        <p>OR</p>
+        <FormGroup>
+          <Input
+            type='text'
+            name='optionTwo'
+            id='optionTwo'
+            placeholder='Enter option two text here'
+            onChange={props.handleChange}
+            onBlur={props.handleBlur}
+            value={props.values.optionTwo}
+            invalid={props.errors.optionTwo && props.touched.optionTwo}
+            valid={!props.errors.optionTwo && props.touched.optionTwo}
+          />
+          <FormFeedback>{props.errors.optionTwo}</FormFeedback>
+        </FormGroup>
+        <Button className='btn-block' color='primary' type='submit'>Submit</Button>
+      </Form>
+     )
+  }
 
   render() {
-    const { validated, optionOne, optionTwo } = this.state;
-    const variant = validated ? 'was-validated' : ''
-
     return (
       <Card>
         <CardHeader tag='h1'>Create New Question</CardHeader>
         <CardBody>
           <p>Complete the question:</p>
           <CardTitle tag='h2'>Would you rather...</CardTitle>
-          <Form className={`needs-validation ${variant}`} onSubmit={this.handleSubmit} noValidate>
-            <FormGroup>
-              <Input
-                type='text'
-                name='optionOne'
-                id='optionOne'
-                value={optionOne}
-                placeholder='Enter option one text here'
-                onChange={this.handleChange}
-                required
-              />
-              <FormFeedback>Please enter option one text.</FormFeedback>
-            </FormGroup>
-            <p>OR</p>
-            <FormGroup>
-              <Input
-                type='text'
-                name='optionTwo'
-                id='optionTwo'
-                value={optionTwo}
-                placeholder='Enter option two text here'
-                onChange={this.handleChange}
-                required
-              />
-              <FormFeedback>Please enter option two text.</FormFeedback>
-            </FormGroup>
-            <Button className='btn-block' color='primary'>Submit</Button>
-          </Form>
-          </CardBody>
+          <Formik
+            initialValues={{
+              optionOne: '',
+              optionTwo: '',
+            }}
+            validate={this.validate}
+            onSubmit={(values, { setSubmitting }) => {
+              this.submitForm(values)
+              setSubmitting(true)
+            }}>
+            {this.renderForm}
+          </Formik>
+
+         </CardBody>
         </Card>
      )
   }

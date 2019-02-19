@@ -39,7 +39,7 @@ class App extends Component {
                     <Switch>
                       <Route path='/login' component={Login} />
                       <ProtectedRoute path='/' exact component={Home} />
-                      <ProtectedRoute path='/question/:id' component={PollContainer} />
+                      <ProtectedRoute path='/questions/:id' component={PollContainer} />
                       <ProtectedRoute path='/add' component={NewPoll} />
                       <ProtectedRoute path='/leaderboard' component={LeaderBoard} />
                       <ProtectedRoute component={NotFound} />

@@ -13,7 +13,7 @@ const PollSummary = (props) => {
       <Link
         className='btn-block btn btn-primary'
         to={{
-          pathname: `/question/${poll.id}`,
+          pathname: `/questions/${poll.id}`,
           state: { returnTab: homeTab }
       }}>View Poll</Link>
     </CardBody>
