@@ -13,7 +13,7 @@ const AnsweredPoll = (props) => {
 
   return (
     <CardBody>
-      <CardTitle tag='h2'>Results</CardTitle>
+      <CardTitle tag='h6'>Results</CardTitle>
       <AnswerDetails
         text={poll.optionOne.text}
         votes={optionOneVotes}

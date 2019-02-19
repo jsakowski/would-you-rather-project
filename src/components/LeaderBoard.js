@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Card, CardHeader, CardBody, CardImg, CardTitle, Row, Col, Badge } from 'reactstrap'
+import { FaStar } from 'react-icons/fa'
+import { IconContext } from 'react-icons'
 import { getLeaders } from '../reducers'
 
 const LeaderBoard = (props) => {
@@ -11,7 +13,7 @@ const LeaderBoard = (props) => {
         <h1>Leader Board</h1>
         <ul className='list-unstyled'>
         {
-          leaders.map((user) => (
+          leaders.map((user, index) => (
             <li key={user.uid} className='pt-3'>
               <Card>
                 <CardBody>
@@ -20,7 +22,15 @@ const LeaderBoard = (props) => {
                       <CardImg className='img-avatar-medium' src={user.avatarURL} />
                     </Col>
                     <Col xs={5} md={6} className='pr-4'>
-                      <CardTitle className='mb-4' tag='h3'>{user.name}</CardTitle>
+                      <CardTitle className='mb-4' tag='h3'>
+                        {user.name}
+                        {index === 0 && <IconContext.Provider value={{ className: 'user-trophy' }}>
+                          <span>
+                            <FaStar />
+                          </span>
+                        </IconContext.Provider>}
+
+                      </CardTitle>
                       <div className='mt-5 clearfix'>
                         <div className='float-left'>Answered questions </div>
                         <div className='float-right pr-4'>{user.answersTotal}</div>

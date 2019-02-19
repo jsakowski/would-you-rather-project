@@ -8,10 +8,10 @@ const PollSummary = (props) => {
   const { poll, homeTab } = props
   return (
     <CardBody>
-      <CardTitle tag='h5'>Would you rather</CardTitle>
-      <CardText>{poll.optionOne.text}...</CardText>
+      <CardTitle>Would you rather</CardTitle>
+      <CardText tag='h5'>{poll.optionOne.text}...</CardText>
       <Link
-        className='btn-block btn btn-primary'
+        className='btn-block btn btn-primary mt-3'
         to={{
           pathname: `/questions/${poll.id}`,
           state: { returnTab: homeTab }

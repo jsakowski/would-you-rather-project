@@ -51,7 +51,7 @@ class Login extends Component {
           </Input>
           <FormFeedback>{props.errors.user}</FormFeedback>
         </FormGroup>
-        <Button className='btn-block' color='primary' type='submit' >Log in</Button>
+        <Button className='btn-block mt-3' color='primary' type='submit' >Log in</Button>
       </Form>
     )
   }

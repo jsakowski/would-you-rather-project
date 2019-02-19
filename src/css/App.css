@@ -34,6 +34,20 @@
   margin-bottom: 0.25rem
 }
 
+.user-vote {
+  float: right;
+  margin-right: -1rem;
+  margin-top: -0.5rem;
+  height: 3rem;
+  width: 3rem;
+}
+
+.user-trophy {
+  vertical-align: baseline;
+  margin-left: 0.5rem;
+  color: coral;
+}
+
 @media screen and (max-width: 991px) {
   .page {
       padding: 1rem 0rem;

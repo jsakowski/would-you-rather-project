@@ -23,10 +23,10 @@ const PollWrapper = (props) => {
       <CardBody>
         <Container fluid>
           <Row>
-            <Col xs={4} md={4}>
+            <Col xs={3} md={3}>
               <CardImg className='img-avatar-medium' src={authorAvatar} />
             </Col>
-            <Col xs={8}>
+            <Col xs={9}>
               {props.children}
             </Col>
           </Row>

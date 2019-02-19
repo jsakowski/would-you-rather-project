@@ -73,7 +73,7 @@ class NewPoll extends Component {
           />
           <FormFeedback>{props.errors.optionTwo}</FormFeedback>
         </FormGroup>
-        <Button className='btn-block' color='primary' type='submit'>Submit</Button>
+        <Button className='btn-block mt-3' color='primary' type='submit'>Submit</Button>
       </Form>
      )
   }
